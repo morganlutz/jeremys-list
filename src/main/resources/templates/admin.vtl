@@ -1,0 +1,25 @@
+<div class="row">
+  <h1 class="well">ADMIN: Edit or delete a restaurant or cuisine</h1>
+  <div class="col-md-6">
+  <h2>All Cuisines</h2>
+    <div class="well">
+    #foreach($cuisine in $cuisines)
+     <h3 class="clickable"><a href="/cuisines/$cuisine.getId()/update">$cuisine.getFoodType()</a></h3>
+    #end
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h2>All Restaurants</h2>
+    #foreach($restaurant in $restaurants)
+     <div class="well">
+     <h3 class="clickable"><a href="/$restaurant.getCuisineId()/restaurants/$restaurant.getId()/update">$restaurant.getName()</a></h3>
+     <h5><p>$restaurant.getCity()</p></h5>
+     <h5><p>$restaurant.getHours()</p></h5>
+     <h5><p>$restaurant.getCuisineName()</h5>
+     </div>
+    #end
+  </div>
+</div>
+
+<h5><a href="/">home</a></h5>

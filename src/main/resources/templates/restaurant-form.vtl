@@ -1,0 +1,28 @@
+<!--Edits restaurants-->
+<h3>Update $restaurant.getName()</h3>
+
+<form action="/$cuisine.getId()/restaurants/$restaurant.getId()/update" method="post">
+
+  <div class="form-group">
+    <label for="name">New name:</label>
+    <input id="name" name="name" type="text" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="city">New city:</label>
+    <input id="city" name="city" type="text" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="hours">New Hours of Operation:</label>
+    <input id="hours" name="hours" type="text" class="form-control">
+  </div>
+
+  <button type="submit" class="btn btn-success">Submit</button>
+
+</form>
+
+
+<form action="/$cuisine.getId()/restaurants/$restaurant.getId()/delete" method="post">
+  <button type="submit" class="btn btn-danger">Delete</button>
+</form>
