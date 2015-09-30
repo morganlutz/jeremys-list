@@ -24,7 +24,8 @@ public class Category {
       return false;
     } else {
       Category newCategory = (Category) otherCategory;
-      return this.getType().equals(newCategory.getType());
+      return this.getType().equals(newCategory.getType()) &&
+             this.getId() == newCategory.getId();
     }
   }
 
@@ -37,7 +38,7 @@ public class Category {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql ="INSERT INTO categories (type) values (:type)";
+      String sql ="INSERT INTO categories (type) VALUES (:type)";
       this.id = (int) con.createQuery(sql, true)
       .addParameter("type", this.type)
       .executeUpdate()
@@ -47,29 +48,11 @@ public class Category {
 
   public static Category find(int id) {
     try(Connection con = DB.sql2o.open()) {
-      String sql ="select * from categories where id=:id";
+      String sql ="SELECT * FROM categories WHERE id=:id";
       Category category = con.createQuery(sql)
-      .addParameter("id", id)
-      .executeAndFetchFirst(Category.class);
+        .addParameter("id", id)
+        .executeAndFetchFirst(Category.class);
       return category;
-    }
-  }
-
-  public List<Restaurant> getRestaurants() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT * FROM restaurants WHERE category_id=:id";
-      return con.createQuery(sql)
-       .addParameter("id", this.id)
-       .executeAndFetch(Restaurant.class);
-    }
-  }
-
-  public void delete() {
-    try(Connection con = DB.sql2o.open()) {
-      String sql = "DELETE FROM categories WHERE id = :id;";
-      con.createQuery(sql)
-      .addParameter("id", id)
-      .executeUpdate();
     }
   }
 
@@ -82,5 +65,41 @@ public class Category {
       .executeUpdate();
     }
   }
+
+  public List<Restaurant> getRestaurants() {
+    String sql = "SELECT restaurants.* FROM categories JOIN restaurant_category ON"+
+    "(restaurants.id = restaurant_category.restaurant_id) JOIN categories ON "+
+    "(restaurant_category.category_id = categories.id) WHERE categories.id=:category_id;";
+    try(Connection con = DB.sql2o.open()) {
+      List<Restaurant> restaurants = con.createQuery(sql)
+        .addParameter("category_id", this.getId())
+        .executeAndFetch(Restaurant.class);
+      return restaurants;
+    }
+  }
+
+  public void deleteListAssociationsOnly(Restaurant restaurant) {
+    try(Connection con = DB.sql2o.open()) {
+      String joinDeleteQuery = "DELETE FROM restaurant_category WHERE restaurant_id=:restaurant_id AND category_id:=category_id";
+        con.createQuery(joinDeleteQuery)
+          .addParameter("category_id", this.getId())
+          .addParameter("restaurant_id", restaurant.getId())
+          .executeUpdate();
+    }
+  }
+
+  public void totalDeletion() {
+    try(Connection con = DB.sql2o.open()) {
+      String deleteQuery = "DELETE FROM categories WHERE id=:id";
+        con.createQuery(deleteQuery)
+          .addParameter("id", id)
+          .executeUpdate();
+
+      String joinDeleteQuery = "DELETE FROM restaurant_category WHERE category_id=:category_id";
+        con.createQuery(joinDeleteQuery)
+          .addParameter("category_id", this.getId())
+          .executeUpdate();
+     }
+   }
 
 }

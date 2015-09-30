@@ -64,7 +64,7 @@ public class Restaurant {
       this.getPhone().equals(newRestaurant.getPhone()) &&
       this.getWebsite().equals(newRestaurant.getWebsite()) &&
       this.getYelp().equals(newRestaurant.getYelp()) &&
-      this.getHours().equals(newRestaurant.getHours()) &&
+      this.getHours().equals(newRestaurant.getHours());
     }
   }
 
@@ -116,42 +116,103 @@ public class Restaurant {
     }
   }
 
-  public String getCategory() {
-    String sql = "SELECT categories.name FROM restaurants JOIN restaurant_category ON"+
+  public void addCategory(Category category) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO restaurant_category (restaurant_id, category_id) "+
+      "SELECT :restaurant_id, :category_id WHERE NOT EXISTS (SELECT restaurant_id, category_id "+
+      "FROM restaurant_category WHERE restaurant_id=:restaurant_id AND category_id=:category_id)";
+      con.createQuery(sql)
+        .addParameter("restaurant_id", this.id)
+        .addParameter("category_id", category.getId())
+        .executeUpdate();
+      }
+    }
+
+  public List<Category> getCategories() {
+    String sql = "SELECT categories.* FROM restaurants JOIN restaurant_category ON"+
     "(restaurants.id = restaurant_category.restaurant_id) JOIN categories ON "+
     "(restaurant_category.category_id = categories.id) where restaurants.id=:restaurant_id;";
     try(Connection con = DB.sql2o.open()) {
-      return con.createQuery(sql)
-        .addParameter("id", cuisine_id) //:id variable replaced with cuisine_id
-        .executeAndFetchFirst(String.class);
+      List<Category> categories = con.createQuery(sql)
+        .addParameter("restaurant_id", this.id)
+        .executeAndFetch(Category.class);
+      return categories;
     }
   }
 
-  public void addCategory(Category category) {
-  try(Connection con = DB.sql2o.open()) {
-    String sql = "INSERT INTO restaurant_category (restaurant_id, category_id) VALUES (:restaurant_id, :category_id)";
-    con.createQuery(sql)
-      .addParameter("restaurant_id", this.getId())
-      .addParameter("category", category.getId())
-      .executeUpdate();
-  }
-}
+  public void addQuadrant(Quadrant quadrant) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO restaurant_location (restaurant_id, quadrant_id) "+
+      "SELECT :restaurant_id, :quadrant_id WHERE NOT EXISTS (SELECT restaurant_id, quadrant_id "+
+      "FROM restaurant_category WHERE restaurant_id=:restaurant_id AND quadrant_id=:quadrant_id)";
+      con.createQuery(sql)
+        .addParameter("restaurant_id", this.id)
+        .addParameter("quadrant_id", quadrant.getId())
+        .executeUpdate();
+      }
+    }
 
   public String getQuadrant() {
-    String sql = "SELECT quadrant FROM quadrants WHERE id=:quadrant_id";
+    String sql = "SELECT quadrants.quadrant FROM restaurants JOIN restaurant_location ON"+
+    "(restaurants.id = restaurant_location.restaurant_id) JOIN quadrants ON "+
+    "(restaurant_location.quadrant_id = quadrants.id) where restaurants.id=:restaurant_id;";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql)
-        .addParameter("quadrant_id", quadrant_id)
+        .addParameter("restaurant_id", this.id) //:id variable replaced with cuisine_id
         .executeAndFetchFirst(String.class);
     }
   }
 
-  public void deleteListAssociationsOnly(Category category) {
+  public void addDietaryRestriction(Diet diet) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "INSERT INTO restaurants_for_diets (restaurant_id, dietary_id) "+
+      "SELECT :restaurant_id, :dietary_id WHERE NOT EXISTS (SELECT restaurant_id, dietary_id "+
+      "FROM restaurants_for_diets WHERE restaurant_id=:restaurant_id AND dietary_id=:dietary_id)";
+      con.createQuery(sql)
+        .addParameter("restaurant_id", this.id)
+        .addParameter("dietary_id", diet.getId())
+        .executeUpdate();
+      }
+    }
+
+  public List<Diet> getDietaryRestrictions() {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "SELECT restaurants_for_diets.* FROM restaurants JOIN restaurants_for_diets ON"+
+      "(restaurants.id = restaurants_for_diets.restaurant_id) JOIN dietary_restrictions ON "+
+      "(restaurants_for_diets.dietary_id = dietary_restrictions.id) WHERE restaurants.id=:restaurant_id;";
+      List<Diet> restrictions = con.createQuery(sql)
+        .addParameter("restaurant_id", this.getId())
+        .executeAndFetch(Diet.class);
+      return restrictions;
+      }
+    }
+
+  public void deleteCategory(Category category) {
     try(Connection con = DB.sql2o.open()) {
       String joinDeleteQuery = "DELETE FROM restaurant_category WHERE restaurant_id=:restaurant_id AND category_id:=category_id";
         con.createQuery(joinDeleteQuery)
           .addParameter("restaurant_id", this.getId())
           .addParameter("category_id", category.getId())
+          .executeUpdate();
+    }
+  }
+
+  public void deleteQuadrant(Quadrant quadrant) {
+    try(Connection con = DB.sql2o.open()) {
+      String joinDeleteQuery = "DELETE FROM restaurant_location WHERE restaurant_id=:restaurant_id AND quadrant_id:=quadrant_id";
+        con.createQuery(joinDeleteQuery)
+          .addParameter("restaurant_id", this.getId())
+          .addParameter("quadrant_id", quadrant.getId())
+          .executeUpdate();
+    }
+  }
+
+  public void deleteDietaryRestriction(Diet diet) {
+    try(Connection con = DB.sql2o.open()) {
+      String joinDeleteQuery = "DELETE FROM restaurants_for_diets WHERE restaurant_id=:restaurant_id AND dietary_id:=dietary_id";
+        con.createQuery(joinDeleteQuery)
+          .addParameter("restaurant_id", this.getId())
+          .addParameter("dietary_id", diet.getId())
           .executeUpdate();
     }
   }
@@ -169,18 +230,6 @@ public class Restaurant {
           .executeUpdate();
      }
    }
-
-
-  public List<Diet> getDietaryRestrictions() {
-    String sql = "SELECT dietary_restrictions.restriction FROM restaurants JOIN restaurants_for_diets ON"+
-    "(restaurants.id = restaurants_for_diets.restaurant_id) JOIN dietary_restrictions ON "+
-    "(restaurants_for_diets.dietary_id = dietary_restrictions.id) where restaurants.id=:restaurant_id;";
-    List<Diet> restrictions = con.createQuery(sql)
-      .addParameter("restaurant_id", this.getId())
-      .executeAndFetch(Diet.class);
-    return restrictions;
-    }
-  }
 
 
   // public static List<Restaurant> search(String address, int cuisine) {

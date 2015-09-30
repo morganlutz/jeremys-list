@@ -12,131 +12,55 @@ public class App {
 
   get("/", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    //categories here can be anything as long as it matches $categories
     model.put("restaurants", Restaurant.all());
-    model.put("cuisines", Cuisine.all());
-    model.put("template", "templates/index.vtl");
+    model.put("categories", Category.all());
+    model.put("template", "templates/home.vtl");
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
 
-  post("/cuisines", (request, response) -> { //post route must match form action
-    HashMap<String,Object> model = new HashMap<String, Object>();
-    String foodtype = request.queryParams("foodtype");
-    Cuisine newCuisine = new Cuisine(foodtype);
-    newCuisine.save();
-    model.put("cuisines", Cuisine.all());
-    //put arraylist of cuisines on page
-    model.put("template", "templates/index.vtl");
-    return new ModelAndView(model, layout);
-  }, new VelocityTemplateEngine());
-
-  get("/cuisines", (request, response) -> {
-  //need to put :id in the url so that we can grab it below
+  post("/new-category", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
+    String type = request.queryParams("type");
+    Category newCategory = new Category(type);
+    newCategory.save();
 
     model.put("restaurants", Restaurant.all());
-    model.put("cuisines", Cuisine.all());
+    model.put("categories", Category.all());
     model.put("template", "templates/admin.vtl");
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
 
-  post("/restaurants", (request, response) -> {
-    ///restaurants in index.vtl
-    //posts information from restaurant form on homepage.
+  post("/new-restaurant", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    Cuisine cuisine = Cuisine.find(Integer.parseInt(request.queryParams("cuisine_id")));
+
     String name = request.queryParams("name");
-    String city = request.queryParams("city");
+    String address = request.queryParams("address");
+    String phone = request.queryParams("phone");
+    String website = request.queryParams("website");
+    String yelp = request.queryParams("yelp");
     String hours = request.queryParams("hours");
-    Restaurant newRestaurant = new Restaurant(name, city, hours, cuisine.getId());
+    Restaurant newRestaurant = new Restaurant(name, address, phone, website, yelp, hours);
     newRestaurant.save();
-    model.put("cuisine", cuisine);
-    model.put("cuisines", Cuisine.all());
-    model.put("template", "templates/index.vtl");
-    return new ModelAndView(model, layout);
-  }, new VelocityTemplateEngine());
+    int categoryId = Integer.parseInt(request.queryParams("categoryId"));
+    Category newCategory = Category.find(categoryId);
 
-  get("/cuisines/:id/update", (request, response) -> {
-    HashMap<String, Object> model = new HashMap<String, Object>();
-    Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":id")));
-    model.put("cuisine", cuisine);
-    model.put("template", "templates/cuisine-form.vtl");
-    return new ModelAndView(model, layout);
-  }, new VelocityTemplateEngine());
+    newRestaurant.addCategory(newCategory);
 
-  post("/cuisines/:id/update", (request, response) -> {
-    HashMap<String, Object> model = new HashMap<String, Object>();
-    Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":id")));
-    String foodtype = request.queryParams("foodtype");
-    cuisine.update(foodtype);
-    response.redirect("/cuisines");
-    return null;
-  });
-
-  post("cuisines/:id/delete", (request, response) -> {
-    HashMap<String, Object> model = new HashMap<String, Object>();
-    Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":id")));
-    cuisine.delete();
-  //  model.put("cuisines", Cuisine.all());
-    response.redirect("/cuisines");
-    return null;
-  });
-
-  get("/:cuisine_id/restaurants/:id/update", (request, response) -> {
-    HashMap<String, Object> model = new HashMap<String, Object>();
-    Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
-    Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":id")));
-    model.put("cuisine", cuisine);
-    model.put("cuisines", Cuisine.all());
-    model.put("restaurant", restaurant);
-    model.put("template", "templates/restaurant-form.vtl");
-    return new ModelAndView(model, layout);
-  }, new VelocityTemplateEngine());
-
-  post("/:cuisine_id/restaurants/:id/update", (request, response) -> {
-    HashMap<String, Object> model = new HashMap<String, Object>();
-    Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
-    Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":id")));
-    model.put("cuisines", Cuisine.all());
-    String name = request.queryParams("name");
-    String city = request.queryParams("city");
-    String hours = request.queryParams("hours");
-    restaurant.update(name, city, hours);
-    response.redirect("/cuisines");
-    return null;
-  });
-
-   post("/:cuisine_id/restaurants/:id/delete", (request, response) -> {
-   HashMap<String, Object> model = new HashMap<String, Object>();
-   Cuisine cuisine = Cuisine.find(Integer.parseInt(request.params(":cuisine_id")));
-   Restaurant restaurant = Restaurant.find(Integer.parseInt(request.params(":id")));
-   model.put("template", "templates/admin.vtl");
-   restaurant.delete();
-   model.put("restaurants", Restaurant.all());
-   model.put("cuisines", Cuisine.all());
-   return new ModelAndView(model, layout);
-  }, new VelocityTemplateEngine());
-
-  get("/search", (request, response) -> {
-    HashMap<String, Object> model = new HashMap<String, Object>();
-    //categories here can be anything as long as it matches $categories
     model.put("restaurants", Restaurant.all());
-    model.put("cuisines", Cuisine.all());
-    model.put("template", "templates/search.vtl");
+    model.put("categories", Category.all());
+    model.put("template", "templates/admin.vtl");
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
 
-  post("/search", (request, response) -> {
+  post("/add-category", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    int cuisine = Integer.parseInt(request.queryParams("cuisine_id"));
-    String city = request.queryParams("city");
+    Category newCategory = Category.find(Integer.parseInt(request.queryParams("categoryId")));
+    Restaurant newRestaurant = Restaurant.find(Integer.parseInt(request.queryParams("restaurantId")));
+    newRestaurant.addCategory(newCategory);
 
-    List<Restaurant> searchResults = Restaurant.search(city, cuisine);
-    model.put("searchResults", searchResults);
-    model.put("cuisine", cuisine);
     model.put("restaurants", Restaurant.all());
-    model.put("cuisines", Cuisine.all());
-    model.put("template", "templates/search.vtl");
+    model.put("categories", Category.all());
+    model.put("template", "templates/admin.vtl");
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
 
