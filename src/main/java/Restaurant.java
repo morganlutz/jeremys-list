@@ -231,18 +231,4 @@ public class Restaurant {
      }
    }
 
-
-  // public static List<Restaurant> search(String address, int cuisine) {
-  //   try(Connection con = DB.sql2o.open()) {
-  //    String sql = "SELECT id, name, address, hours, cuisine_id FROM restaurants WHERE address=:address AND cuisine_id=:cuisine;";
-  //    return con.createQuery(sql)
-  //     .addParameter("address", address)
-  //     .addParameter("cuisine", cuisine)
-  //     .executeAndFetch(Restaurant.class);
-  //   }
-  // }
-
-
-
-
 }
