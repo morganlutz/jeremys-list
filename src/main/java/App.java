@@ -14,8 +14,8 @@ public class App {
 
   get("/", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    model.put("restaurants", Restaurant.all());
-    model.put("categories", CategoryDataStore.all());
+    model.put("restaurants", restaurantDataStore.all());
+    model.put("categories", categoryDataStore.all());
     model.put("template", "templates/home.vtl");
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());

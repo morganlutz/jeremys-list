@@ -2,18 +2,18 @@ package jeremyslist;
 import java.util.List;
 import org.sql2o.*;
 
-public class categoryDataStore {
+public abstract class categoryDataStore {
 
-  @Override
-  public boolean equals(Object otherCategory) {
-    if(!(otherCategory instanceof Category)) {
-      return false;
-    } else {
-      Category newCategory = (Category) otherCategory;
-      return this.getType().equals(newCategory.getType()) &&
-             this.getId() == newCategory.getId();
-    }
-  }
+  // @Override
+  // public boolean equals(Object otherCategory) {
+  //   if(!(otherCategory instanceof Category)) {
+  //     return false;
+  //   } else {
+  //     Category newCategory = (Category) otherCategory;
+  //     return this.getType().equals(newCategory.getType()) &&
+  //            this.getId() == newCategory.getId();
+  //   }
+  // }
 
   public static List<Category> all() {
     String sql = "SELECT * FROM categories";

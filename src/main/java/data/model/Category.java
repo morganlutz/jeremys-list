@@ -1,6 +1,6 @@
 package jeremyslist;
 
-public class Category {
+public class Category extends categoryDataStore {
   private String type;
   private int id;
 
