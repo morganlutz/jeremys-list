@@ -50,4 +50,40 @@ public class Restaurant {
   public int getQuadrantId() {
     return quadrant_id;
   }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
+  }
+
+  public void setYelp(String yelp) {
+    this.yelp = yelp;
+  }
+
+  public void setHours(String hours) {
+    this.hours = hours;
+  }
+
+  public int getQuadrant_id() {
+    return quadrant_id;
+  }
+
+  public void setQuadrant_id(int quadrant_id) {
+    this.quadrant_id = quadrant_id;
+  }
 }

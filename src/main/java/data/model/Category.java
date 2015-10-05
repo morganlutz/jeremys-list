@@ -1,11 +1,19 @@
 package jeremyslist;
 
-public class Category extends categoryDataStore {
+public class Category {
   private String type;
   private int id;
 
   public Category(String type) {
     this.type = type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public int getId() {
@@ -17,3 +25,4 @@ public class Category extends categoryDataStore {
   }
 
 }
+

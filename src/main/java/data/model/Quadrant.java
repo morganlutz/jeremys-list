@@ -15,4 +15,12 @@ public class Quadrant {
   public String getQuadrant() {
     return quadrant;
   }
+
+  public void setQuadrant(String quadrant) {
+    this.quadrant = quadrant;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
 }

@@ -1,9 +1,8 @@
-package jeremyslist;
+package jeremyslist.*;
 import java.util.List;
 import org.sql2o.*;
 
-public abstract class categoryDataStore {
-
+public class categoryDataStore extends Category {
   // @Override
   // public boolean equals(Object otherCategory) {
   //   if(!(otherCategory instanceof Category)) {
@@ -22,13 +21,15 @@ public abstract class categoryDataStore {
     }
   }
 
-  public void save() {
+  public void save(Category category) {
     try(Connection con = DB.sql2o.open()) {
       String sql ="INSERT INTO categories (type) VALUES (:type)";
-      this.id = (int) con.createQuery(sql, true)
-      .addParameter("type", this.type)
+      int id = (int) con.createQuery(sql, true)
+      .addParameter("type", category.getType())
       .executeUpdate()
       .getKey();
+
+      category.setId(id);
     }
   }
 
