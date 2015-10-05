@@ -8,6 +8,15 @@ public class Restaurant {
   private String hours;
   private int quadrant_id;
 
+  public Restaurant(String name, String address, String phone, String website, String yelp, String hours) {
+    this.name = name;
+    this.address = address;
+    this.phone = phone;
+    this.website = website;
+    this.yelp = yelp;
+    this.hours = hours;
+  }
+
   public int getId() {
     return id;
   }
