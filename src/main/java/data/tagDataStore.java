@@ -1,4 +1,4 @@
-import jeremys-list.model.Tag;
+package jeremyslist;
 import java.util.List;
 import org.sql2o.*;
 

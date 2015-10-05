@@ -1,4 +1,4 @@
-package jeremys-list.data.models;
+package jeremyslist;
 
 public class Tag {
   private String description;

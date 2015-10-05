@@ -1,4 +1,4 @@
-import jeremys-list.model.Restaurant;
+package jeremyslist;
 import java.util.List;
 import org.sql2o.*;
 
@@ -116,26 +116,26 @@ public class restaurantDataStore {
     }
   }
 
-  public void addDietaryRestriction(Diet diet) {
+  public void addTag(Tag tag) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO restaurants_for_diets (restaurant_id, dietary_id) "+
-      "SELECT :restaurant_id, :dietary_id WHERE NOT EXISTS (SELECT restaurant_id, dietary_id "+
-      "FROM restaurants_for_diets WHERE restaurant_id=:restaurant_id AND dietary_id=:dietary_id)";
+      String sql = "INSERT INTO restaurants_tags (restaurant_id, tag_id) "+
+      "SELECT :restaurant_id, :tag_id WHERE NOT EXISTS (SELECT restaurant_id, tag_id "+
+      "FROM restaurants_tags WHERE restaurant_id=:restaurant_id AND tag_id=:tag_id)";
       con.createQuery(sql)
         .addParameter("restaurant_id", this.id)
-        .addParameter("dietary_id", diet.getId())
+        .addParameter("tag_id", tag.getId())
         .executeUpdate();
       }
     }
 
-  public List<Diet> getDietaryRestrictions() {
+  public List<Tag> getTags() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT restaurants_for_diets.* FROM restaurants JOIN restaurants_for_diets ON"+
-      "(restaurants.id = restaurants_for_diets.restaurant_id) JOIN dietary_restrictions ON "+
-      "(restaurants_for_diets.dietary_id = dietary_restrictions.id) WHERE restaurants.id=:restaurant_id;";
-      List<Diet> restrictions = con.createQuery(sql)
+      String sql = "SELECT restaurants_tags.* FROM restaurants JOIN restaurants_tags ON"+
+      "(restaurants.id = restaurants_tags.restaurant_id) JOIN tags ON "+
+      "(restaurants_tags.tag_id = tags.id) WHERE restaurants.id=:restaurant_id;";
+      List<Tag> restrictions = con.createQuery(sql)
         .addParameter("restaurant_id", this.getId())
-        .executeAndFetch(Diet.class);
+        .executeAndFetch(Tag.class);
       return restrictions;
       }
     }
@@ -160,12 +160,12 @@ public class restaurantDataStore {
     }
   }
 
-  public void deleteDietaryRestriction(Diet diet) {
+  public void deleteTag (Tag tag) {
     try(Connection con = DB.sql2o.open()) {
-      String joinDeleteQuery = "DELETE FROM restaurants_for_diets WHERE restaurant_id=:restaurant_id AND dietary_id:=dietary_id";
+      String joinDeleteQuery = "DELETE FROM restaurants_tags WHERE restaurant_id=:restaurant_id AND tag_id:=tag_id";
         con.createQuery(joinDeleteQuery)
           .addParameter("restaurant_id", this.getId())
-          .addParameter("dietary_id", diet.getId())
+          .addParameter("tag_id", tag.getId())
           .executeUpdate();
     }
   }
