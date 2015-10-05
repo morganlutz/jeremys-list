@@ -1,9 +1,7 @@
 import java.util.List;
 import org.sql2o.*;
 
-public Tag(String description) {
-  this.description = description;
-}
+public class tagDataStore {
 
 @Override
 public boolean equals(Object otherTag) {
