@@ -10,14 +10,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: categories; Type: TABLE; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: categories; Type: TABLE; Schema: public; Owner: morgaface; Tablespace:
 --
 
 CREATE TABLE categories (
@@ -63,7 +63,7 @@ ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
 
 
 --
--- Name: dietary_restrictions; Type: TABLE; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: dietary_restrictions; Type: TABLE; Schema: public; Owner: morgaface; Tablespace:
 --
 
 CREATE TABLE dietary_restrictions (
@@ -96,7 +96,7 @@ ALTER SEQUENCE dietary_restrictions_id_seq OWNED BY dietary_restrictions.id;
 
 
 --
--- Name: quadrants; Type: TABLE; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: quadrants; Type: TABLE; Schema: public; Owner: morgaface; Tablespace:
 --
 
 CREATE TABLE quadrants (
@@ -129,7 +129,7 @@ ALTER SEQUENCE quadrants_id_seq OWNED BY quadrants.id;
 
 
 --
--- Name: restaurant_category; Type: TABLE; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: restaurant_category; Type: TABLE; Schema: public; Owner: morgaface; Tablespace:
 --
 
 CREATE TABLE restaurant_category (
@@ -163,7 +163,7 @@ ALTER SEQUENCE restaurant_category_id_seq OWNED BY restaurant_category.id;
 
 
 --
--- Name: restaurant_location; Type: TABLE; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: restaurant_location; Type: TABLE; Schema: public; Owner: morgaface; Tablespace:
 --
 
 CREATE TABLE restaurant_location (
@@ -197,7 +197,7 @@ ALTER SEQUENCE restaurant_location_id_seq OWNED BY restaurant_location.id;
 
 
 --
--- Name: restaurants; Type: TABLE; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: restaurants; Type: TABLE; Schema: public; Owner: morgaface; Tablespace:
 --
 
 CREATE TABLE restaurants (
@@ -213,7 +213,7 @@ CREATE TABLE restaurants (
 ALTER TABLE restaurants OWNER TO morgaface;
 
 --
--- Name: restaurants_for_diets; Type: TABLE; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: restaurants_for_diets; Type: TABLE; Schema: public; Owner: morgaface; Tablespace:
 --
 
 CREATE TABLE restaurants_for_diets (
@@ -422,7 +422,7 @@ SELECT pg_catalog.setval('restaurants_id_seq', 1, false);
 
 
 --
--- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: categories_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace:
 --
 
 ALTER TABLE ONLY categories
@@ -430,7 +430,7 @@ ALTER TABLE ONLY categories
 
 
 --
--- Name: dietary_restrictions_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: dietary_restrictions_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace:
 --
 
 ALTER TABLE ONLY dietary_restrictions
@@ -438,7 +438,7 @@ ALTER TABLE ONLY dietary_restrictions
 
 
 --
--- Name: quadrants_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: quadrants_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace:
 --
 
 ALTER TABLE ONLY quadrants
@@ -446,7 +446,7 @@ ALTER TABLE ONLY quadrants
 
 
 --
--- Name: restaurant_category_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: restaurant_category_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace:
 --
 
 ALTER TABLE ONLY restaurant_category
@@ -454,7 +454,7 @@ ALTER TABLE ONLY restaurant_category
 
 
 --
--- Name: restaurant_location_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: restaurant_location_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace:
 --
 
 ALTER TABLE ONLY restaurant_location
@@ -462,7 +462,7 @@ ALTER TABLE ONLY restaurant_location
 
 
 --
--- Name: restaurants_for_diets_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: restaurants_for_diets_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace:
 --
 
 ALTER TABLE ONLY restaurants_for_diets
@@ -470,7 +470,7 @@ ALTER TABLE ONLY restaurants_for_diets
 
 
 --
--- Name: restaurants_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace: 
+-- Name: restaurants_pkey; Type: CONSTRAINT; Schema: public; Owner: morgaface; Tablespace:
 --
 
 ALTER TABLE ONLY restaurants
@@ -490,4 +490,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
