@@ -1,33 +1,18 @@
+package jeremyslist.*;
 import java.util.List;
 import org.sql2o.*;
 
-
-public class Category {
-  private String type;
-  private int id;
-
-  public int getId() {
-    return id;
-  }
-
-  public String getType() {
-    return type;
-  }
-
-  public Category(String type) {
-    this.type = type;
-  }
-
-  @Override
-  public boolean equals(Object otherCategory) {
-    if(!(otherCategory instanceof Category)) {
-      return false;
-    } else {
-      Category newCategory = (Category) otherCategory;
-      return this.getType().equals(newCategory.getType()) &&
-             this.getId() == newCategory.getId();
-    }
-  }
+public class categoryDataStore extends Category {
+  // @Override
+  // public boolean equals(Object otherCategory) {
+  //   if(!(otherCategory instanceof Category)) {
+  //     return false;
+  //   } else {
+  //     Category newCategory = (Category) otherCategory;
+  //     return this.getType().equals(newCategory.getType()) &&
+  //            this.getId() == newCategory.getId();
+  //   }
+  // }
 
   public static List<Category> all() {
     String sql = "SELECT * FROM categories";
@@ -36,13 +21,15 @@ public class Category {
     }
   }
 
-  public void save() {
+  public void save(Category category) {
     try(Connection con = DB.sql2o.open()) {
       String sql ="INSERT INTO categories (type) VALUES (:type)";
-      this.id = (int) con.createQuery(sql, true)
-      .addParameter("type", this.type)
+      int id = (int) con.createQuery(sql, true)
+      .addParameter("type", category.getType())
       .executeUpdate()
       .getKey();
+
+      category.setId(id);
     }
   }
 
@@ -101,5 +88,4 @@ public class Category {
           .executeUpdate();
      }
    }
-
 }

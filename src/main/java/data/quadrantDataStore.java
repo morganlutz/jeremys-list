@@ -1,22 +1,8 @@
+package jeremyslist;
 import java.util.List;
 import org.sql2o.*;
 
-
-public class Quadrant {
-  private int id;
-  private String quadrant;
-
-  public int getId() {
-    return id;
-  }
-
-  public String getQuadrant() {
-    return quadrant;
-  }
-
-  public Quadrant(String quadrant) {
-    this.quadrant = quadrant;
-  }
+public class quadrantDataStore {
 
   @Override
   public boolean equals(Object otherQuadrant) {

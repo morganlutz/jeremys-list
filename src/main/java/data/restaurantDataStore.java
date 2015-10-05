@@ -1,56 +1,9 @@
+package jeremyslist;
 import java.util.List;
 import org.sql2o.*;
 
-public class Restaurant {
-  private int id;
-  private String name;
-  private String address;
-  private String phone;
-  private String website;
-  private String yelp;
-  private String hours;
-  private int quadrant_id;
 
-  public int getId() {
-    return id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public String getPhone() {
-    return phone;
-  }
-
-  public String getWebsite() {
-    return website;
-  }
-
-  public String getYelp() {
-    return yelp;
-  }
-
-  public String getHours() {
-    return hours;
-  }
-
-  public int getQuadrantId() {
-    return quadrant_id;
-  }
-
-  public Restaurant(String name, String address, String phone, String website, String yelp, String hours) {
-    this.name = name;
-    this.address = address;
-    this.phone = phone;
-    this.website = website;
-    this.yelp = yelp;
-    this.hours = hours;
-  }
+public class restaurantDataStore {
 
   @Override
   public boolean equals(Object otherRestaurant) {
@@ -163,26 +116,26 @@ public class Restaurant {
     }
   }
 
-  public void addDietaryRestriction(Diet diet) {
+  public void addTag(Tag tag) {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO restaurants_for_diets (restaurant_id, dietary_id) "+
-      "SELECT :restaurant_id, :dietary_id WHERE NOT EXISTS (SELECT restaurant_id, dietary_id "+
-      "FROM restaurants_for_diets WHERE restaurant_id=:restaurant_id AND dietary_id=:dietary_id)";
+      String sql = "INSERT INTO restaurants_tags (restaurant_id, tag_id) "+
+      "SELECT :restaurant_id, :tag_id WHERE NOT EXISTS (SELECT restaurant_id, tag_id "+
+      "FROM restaurants_tags WHERE restaurant_id=:restaurant_id AND tag_id=:tag_id)";
       con.createQuery(sql)
         .addParameter("restaurant_id", this.id)
-        .addParameter("dietary_id", diet.getId())
+        .addParameter("tag_id", tag.getId())
         .executeUpdate();
       }
     }
 
-  public List<Diet> getDietaryRestrictions() {
+  public List<Tag> getTags() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT restaurants_for_diets.* FROM restaurants JOIN restaurants_for_diets ON"+
-      "(restaurants.id = restaurants_for_diets.restaurant_id) JOIN dietary_restrictions ON "+
-      "(restaurants_for_diets.dietary_id = dietary_restrictions.id) WHERE restaurants.id=:restaurant_id;";
-      List<Diet> restrictions = con.createQuery(sql)
+      String sql = "SELECT restaurants_tags.* FROM restaurants JOIN restaurants_tags ON"+
+      "(restaurants.id = restaurants_tags.restaurant_id) JOIN tags ON "+
+      "(restaurants_tags.tag_id = tags.id) WHERE restaurants.id=:restaurant_id;";
+      List<Tag> restrictions = con.createQuery(sql)
         .addParameter("restaurant_id", this.getId())
-        .executeAndFetch(Diet.class);
+        .executeAndFetch(Tag.class);
       return restrictions;
       }
     }
@@ -207,12 +160,12 @@ public class Restaurant {
     }
   }
 
-  public void deleteDietaryRestriction(Diet diet) {
+  public void deleteTag (Tag tag) {
     try(Connection con = DB.sql2o.open()) {
-      String joinDeleteQuery = "DELETE FROM restaurants_for_diets WHERE restaurant_id=:restaurant_id AND dietary_id:=dietary_id";
+      String joinDeleteQuery = "DELETE FROM restaurants_tags WHERE restaurant_id=:restaurant_id AND tag_id:=tag_id";
         con.createQuery(joinDeleteQuery)
           .addParameter("restaurant_id", this.getId())
-          .addParameter("dietary_id", diet.getId())
+          .addParameter("tag_id", tag.getId())
           .executeUpdate();
     }
   }
@@ -230,19 +183,4 @@ public class Restaurant {
           .executeUpdate();
      }
    }
-
-
-  // public static List<Restaurant> search(String address, int cuisine) {
-  //   try(Connection con = DB.sql2o.open()) {
-  //    String sql = "SELECT id, name, address, hours, cuisine_id FROM restaurants WHERE address=:address AND cuisine_id=:cuisine;";
-  //    return con.createQuery(sql)
-  //     .addParameter("address", address)
-  //     .addParameter("cuisine", cuisine)
-  //     .executeAndFetch(Restaurant.class);
-  //   }
-  // }
-
-
-
-
-}
+ }
