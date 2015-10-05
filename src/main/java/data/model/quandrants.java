@@ -1,3 +1,5 @@
+package jeremys-list.data.models;
+
 public class Quadrant {
   private int id;
   private String quadrant;

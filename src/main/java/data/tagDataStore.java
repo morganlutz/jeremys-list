@@ -1,3 +1,4 @@
+import jeremys-list.model.Tag;
 import java.util.List;
 import org.sql2o.*;
 

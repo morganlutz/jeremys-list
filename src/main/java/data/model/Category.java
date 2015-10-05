@@ -1,3 +1,5 @@
+package jeremys-list.data.models;
+
 public class Category {
   private String type;
   private int id;

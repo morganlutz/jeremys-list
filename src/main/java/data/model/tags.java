@@ -1,3 +1,5 @@
+package jeremys-list.data.models;
+
 public class Tag {
   private String description;
   private int id;

@@ -1,8 +1,9 @@
+import jeremys-list.model.Quadrant;
 import java.util.List;
 import org.sql2o.*;
 
 public class quadrantDataStore {
-    
+
   @Override
   public boolean equals(Object otherQuadrant) {
     if(!(otherQuadrant instanceof Quadrant)) {

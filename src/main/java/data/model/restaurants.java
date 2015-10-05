@@ -1,3 +1,5 @@
+package jeremys-list.data.models;
+
 public class Restaurant {
   private int id;
   private String name;

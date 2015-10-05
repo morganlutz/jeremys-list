@@ -1,3 +1,4 @@
+import jeremys-list.model.Category;
 import java.util.List;
 import org.sql2o.*;
 
