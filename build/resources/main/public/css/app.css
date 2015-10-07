@@ -11,8 +11,7 @@ html,body {
 #circle-wrapper {
   position: relative;
   left: 50%;
-  top: 50%;
-  margin-top: -300px;
+  top: 100px;
   margin-left: -250px;
   width: 498px;
   height: 498px;
@@ -37,23 +36,27 @@ html,body {
   opacity: 0.5
 }
 
+#circle-1:hover::before {
+  content: attr(title);
+}
+
 #circle-1 {
   background: url(/img/coffee.png) center center no-repeat;
   -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
 }
 
-#circle-2 {
+/*#circle-2 {
   background: url(/img/eggs.png) center center no-repeat;
   -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
-}
+}*/
 
-#circle-3 {
+/*#circle-3 {
   background: url(/img/food-cart.png) center center no-repeat;
   -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
 }
 
 #circle-4 {
-  background: url(/img/sandwhich.png) center center no-repeat;
+  background: url(/img/sandwich.png) center center no-repeat;
   -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
 }
 
@@ -70,4 +73,4 @@ html,body {
 #circle-7 {
   background: url(/img/wine.png) center center no-repeat;
   -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
-}
+}*/
