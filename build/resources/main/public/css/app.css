@@ -3,8 +3,8 @@ html,body {
 }
 
 #list {
-  font-family: Arial,sans-serif
-  font-size:80px;
+  font-family: Lobster;
+  font-size:60px;
   color:#DDCCEE;
 }
 
@@ -15,11 +15,11 @@ html,body {
   margin-left: -250px;
   width: 498px;
   height: 498px;
-  <!--border-radius: 500px;-->
-  <!--border: 1px solid black;-->
+  padding-top: 270px;
+  text-align: center;
 }
 
-.circle {
+.category {
   position: absolute;
   width: 98px;
   height: 61px;
@@ -28,49 +28,97 @@ html,body {
   margin-left: -50px;
   margin-top: -50px;
   padding-top: 37px;
-  text-align: center;
   border-radius: 500px;
-  transition: transform 0.5s ease-out;
-  transform: scale(0.001) rotate(0deg) translate(0px);
+  -webkit-transition: background 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
+  -webkit-transform: scale(0.001) rotate(0deg) translate(0px);
   border: 7px solid #515473;
-  opacity: 0.5
+  cursor: default;
+  -webkit-user-select: none;
 }
 
-#circle-1:hover::before {
-  content: attr(title);
+.category.circle-lined-up {
+  margin-left: 0;
+  top: -50px;
 }
 
-#circle-1 {
+.category.circle-lined-up.circle-one-circle {
+  margin-left: -50px;
+}
+
+.category span {
+  display: none;
+}
+
+.category:hover span{
+  display: inline;
+  font-family: 'Amatic SC', cursive;
+  color: #FFFFFF;
+  font-size: 30px;
+
+}
+
+a {
+  text-decoration: none;
+  text-align: center;
+}
+
+#coffee {
   background: url(/img/coffee.png) center center no-repeat;
-  -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
 }
 
-/*#circle-2 {
+#coffee:hover {
+  background: #F36559;
+}
+
+#breakfast {
   background: url(/img/eggs.png) center center no-repeat;
-  -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
-}*/
+}
 
-/*#circle-3 {
+#breakfast:hover {
+  background: #F36559;
+}
+
+#foodcart {
   background: url(/img/food-cart.png) center center no-repeat;
-  -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
 }
 
-#circle-4 {
+#foodcart:hover {
+  background: #F36559;
+}
+
+#lunch {
   background: url(/img/sandwich.png) center center no-repeat;
-  -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
 }
 
-#circle-5 {
+#lunch:hover {
+  background: #F36559;
+}
+
+#dinner {
   background: url(/img/dinner.png) center center no-repeat;
-  -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
 }
 
-#circle-6 {
+#dinner:hover {
+  background: #F36559;
+}
+
+#dessert {
   background: url(/img/pie.png) center center no-repeat;
-  -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
 }
 
-#circle-7 {
+#dessert:hover {
+  background: #F36559;
+}
+
+
+#drinks {
   background: url(/img/wine.png) center center no-repeat;
-  -webkit-transform: rotate(100deg) translate(250px) rotate(-100deg);
-}*/
+}
+
+
+#drinks:hover {
+  background: #F36559;
+}
+
+/*
+#F26558*/
