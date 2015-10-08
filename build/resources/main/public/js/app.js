@@ -92,16 +92,29 @@ var Circles = {
             circles.removeClass('circle-active');
 
             if (isActive) {
-              Circles.formCircle();
+              // Circles.formCircle();
+              //show all restaurants in that category
 
               document.body.offsetWidth;
             }	else {
               this.classList.add('circle-active');
 
               Circles.formLine();
+
+
             }
           });
 
         // createCircles();
-        Circles.formCircle();
+        initializeCircles();
       });
+
+      function initializeCircles() {
+        if(window.location.pathname === "/") {
+          Circles.formCircle();
+        } else if (window.location.pathname === "/coffee") {
+          Circles.formCircle();
+          $("#coffee").addClass("circle-active");
+          Circles.formLine();
+        }
+      }

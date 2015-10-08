@@ -5,7 +5,7 @@ html,body {
 #list {
   font-family: Lobster;
   font-size:60px;
-  color:#DDCCEE;
+  color: #515473;
 }
 
 #circle-wrapper {
@@ -15,7 +15,7 @@ html,body {
   margin-left: -250px;
   width: 498px;
   height: 498px;
-  padding-top: 270px;
+  padding-top: 290px;
   text-align: center;
 }
 
@@ -29,7 +29,7 @@ html,body {
   margin-top: -50px;
   padding-top: 37px;
   border-radius: 500px;
-  -webkit-transition: background 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
+  -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
   -webkit-transform: scale(0.001) rotate(0deg) translate(0px);
   border: 7px solid #515473;
   cursor: default;
@@ -54,7 +54,21 @@ html,body {
   font-family: 'Amatic SC', cursive;
   color: #FFFFFF;
   font-size: 30px;
+}
 
+.category.circle-lined-up.circle-active {
+  background: #F36559 !important;
+  display: inline;
+  font-family: 'Amatic SC', cursive;
+  color: #FFFFFF;
+  font-size: 30px;
+}
+
+.category.circle-lined-up.circle-active span{
+  display: inline;
+  font-family: 'Amatic SC', cursive;
+  color: #FFFFFF;
+  font-size: 30px;
 }
 
 a {
@@ -119,6 +133,8 @@ a {
 #drinks:hover {
   background: #F36559;
 }
+
+
 
 /*
 #F26558*/
