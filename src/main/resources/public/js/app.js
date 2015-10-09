@@ -78,8 +78,18 @@ var Circles = {
 
           for (var i = circles.length; i--;)
             circles[i].parentNode.removeChild(circles[i]);
-        }
-      };
+        },
+
+        setActive: function () {
+          var circles = Circles.circles;
+          circles = $('.category').removeClass('circle-active');
+          var splitPath = window.location.pathname.split('/');
+          var circle = document.getElementById(splitPath[1]);
+            if (circle){
+              circle.classList.add('circle-active');
+            }
+          }
+       };
 
       $(function () {
         $('#circle-count').change(Circles.create);
@@ -98,7 +108,6 @@ var Circles = {
               document.body.offsetWidth;
             }	else {
               this.classList.add('circle-active');
-
               Circles.formLine();
 
 
@@ -108,6 +117,17 @@ var Circles = {
         // createCircles();
         initializeCircles();
       });
+
+      $(document).on('click', 'a.category', function() {
+        var category = this.getAttribute('data-category');
+        history.pushState({}, category, '/' + category);
+      });
+
+      window.addEventListener('popstate', function (event) {
+        $(Circles.setActive());
+      }, true);
+
+
 
       function initializeCircles() {
         if(window.location.pathname === "/") {

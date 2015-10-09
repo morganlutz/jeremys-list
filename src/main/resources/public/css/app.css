@@ -26,13 +26,13 @@ input {
 
 .category {
   position: absolute;
-  width: 98px;
-  height: 61px;
+  width: 95px;
+  height: 65px;
   left: 50%;
   top: 50%;
   margin-left: -50px;
   margin-top: -50px;
-  padding-top: 37px;
+  padding-top: 30px;
   border-radius: 500px;
   -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
   -webkit-transform: scale(0.001) rotate(0deg) translate(0px);
