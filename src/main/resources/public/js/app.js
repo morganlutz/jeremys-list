@@ -124,7 +124,7 @@ var Circles = {
       });
 
       window.addEventListener('popstate', function (event) {
-        $(Circles.setActive());
+        Circles.setActive();
       }, true);
 
 
@@ -133,7 +133,7 @@ var Circles = {
         if(window.location.pathname === "/") {
           Circles.formCircle();
         } else {
-          $(Circles.setActive());
+          Circles.setActive();
           Circles.formLine();
         }
       }
