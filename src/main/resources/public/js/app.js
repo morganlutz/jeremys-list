@@ -17,6 +17,8 @@ var Circles = {
         },
 
         formCircle: function () {
+          Circles.wrapper.classList.add('circle-mode');
+          Circles.wrapper.classList.remove('line-mode');
           var circles = Circles.circles,
               translateAmount = (Circles.wrapper.offsetWidth / 2) - 1,
               degreeIncrement = 360 / circles.length,
@@ -32,6 +34,8 @@ var Circles = {
         },
 
         formLine: function () {
+          Circles.wrapper.classList.add('line-mode');
+          Circles.wrapper.classList.remove('circle-mode');
           var circles = Circles.circles,
               lineWidth = -Circles.wrapper.offsetWidth,
               centerPoint = Circles.wrapper.offsetWidth / 2,
@@ -80,7 +84,7 @@ var Circles = {
             circles[i].parentNode.removeChild(circles[i]);
         },
 
-        setActive: function () {
+        setActiveFromURL: function () {
           var circles = Circles.circles;
           circles = $('.category').removeClass('circle-active');
           var splitPath = window.location.pathname.split('/');
@@ -91,40 +95,31 @@ var Circles = {
           }
        };
 
-      $(function () {
-        $('#circle-count').change(Circles.create);
-
-        $(document)
-          .on('click touchend', '.category', function () {
-            var isActive = this.classList.contains('circle-active'),
-                circles = $('.category').removeClass('circle-active');
-
-            circles.removeClass('circle-active');
-
-            if (isActive) {
-              // Circles.formCircle();
-              //show all restaurants in that category
-
-              document.body.offsetWidth;
-            }	else {
-              this.classList.add('circle-active');
-              Circles.formLine();
-
-
-            }
-          });
-
-        // createCircles();
-        initializeCircles();
-      });
+       $(initializeCircles);
 
       $(document).on('click', 'a.category', function() {
         var category = this.getAttribute('data-category');
         history.pushState({}, category, '/category/' + category);
+        var isActive = this.classList.contains('circle-active'),
+            circles = $('.category').removeClass('circle-active');
+
+        circles.removeClass('circle-active');
+
+        if (isActive) {
+          // Circles.formCircle();
+          //show all restaurants in that category
+
+          document.body.offsetWidth;
+        }	else {
+          this.classList.add('circle-active');
+          Circles.formLine();
+
+
+        }
       });
 
       window.addEventListener('popstate', function (event) {
-        Circles.setActive();
+        Circles.setActiveFromURL();
       }, true);
 
 
@@ -133,7 +128,7 @@ var Circles = {
         if(window.location.pathname === "/") {
           Circles.formCircle();
         } else {
-          Circles.setActive();
+          Circles.setActiveFromURL();
           Circles.formLine();
         }
       }

@@ -61,15 +61,15 @@ input {
   font-size: 30px;
 }
 
-.category.circle-lined-up.circle-active {
-  background: #F36559 !important;
+#circle-wrapper .category.circle-lined-up.circle-active {
+  background: #F36559;
   display: inline;
   font-family: 'Amatic SC', cursive;
   color: #FFFFFF;
   font-size: 30px;
 }
 
-.category.circle-lined-up.circle-active span{
+#circle-wrapper .category.circle-lined-up.circle-active span{
   display: inline;
   font-family: 'Amatic SC', cursive;
   color: #FFFFFF;
