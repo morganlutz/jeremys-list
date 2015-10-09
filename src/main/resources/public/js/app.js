@@ -84,7 +84,7 @@ var Circles = {
           var circles = Circles.circles;
           circles = $('.category').removeClass('circle-active');
           var splitPath = window.location.pathname.split('/');
-          var circle = document.getElementById(splitPath[1]);
+          var circle = document.getElementById(splitPath[2]);
             if (circle){
               circle.classList.add('circle-active');
             }
@@ -120,7 +120,7 @@ var Circles = {
 
       $(document).on('click', 'a.category', function() {
         var category = this.getAttribute('data-category');
-        history.pushState({}, category, '/' + category);
+        history.pushState({}, category, '/category/' + category);
       });
 
       window.addEventListener('popstate', function (event) {
