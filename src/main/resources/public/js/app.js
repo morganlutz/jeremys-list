@@ -113,7 +113,6 @@ var Circles = {
         if(window.location.pathname === "/") {
           Circles.formCircle();
         } else if (window.location.pathname === "/coffee") {
-          Circles.formCircle();
           $("#coffee").addClass("circle-active");
           Circles.formLine();
         }

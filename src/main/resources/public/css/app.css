@@ -1,5 +1,10 @@
+/*set b/g color here if necessary*/
 html,body {
   height:100%;
+}
+
+input {
+  display: none;
 }
 
 #list {
@@ -128,7 +133,6 @@ a {
 #drinks {
   background: url(/img/wine.png) center center no-repeat;
 }
-
 
 #drinks:hover {
   background: #F36559;
