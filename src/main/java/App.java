@@ -4,11 +4,13 @@ import spark.template.velocity.VelocityTemplateEngine;
 import static spark.Spark.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class App {
   public static void main(String[] args) {
   staticFileLocation("/public");
   String layout = "templates/layout.vtl";
+  List<String> CATEGORIES = Arrays.asList("coffee","breakfast","foodcart","lunch", "dinner", "dessert", "drinks");
 
   get("/", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
@@ -18,13 +20,17 @@ public class App {
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
 
-  get("/category/*", (request, response) -> {
+  get("/category/:category", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    model.put("restaurants", Restaurant.all());
-    model.put("categories", Category.all());
-    model.put("template", "templates/home.vtl");
-    return new ModelAndView(model, layout);
-  }, new VelocityTemplateEngine());
+    String category = request.params(":category");
+      if(CATEGORIES.contains(category)) {
+        model.put("restaurants", Restaurant.all());
+        model.put("categories", Category.all());
+        model.put("template", "templates/home.vtl");
+      } else {
+      response.redirect("/oops", 301);
+      } return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());;
 
   get("/add-restaurants", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
