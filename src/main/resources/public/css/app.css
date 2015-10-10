@@ -7,10 +7,19 @@ input {
   display: none;
 }
 
+ul {
+  list-style-type: none;
+  text-align: left;
+}
+
 #list {
   font-family: Lobster;
   font-size:60px;
   color: #515473;
+  position: absolute;
+  margin-left: -275px;
+  margin-top: -275px;
+  -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
 }
 
 #circle-wrapper {
@@ -41,6 +50,12 @@ input {
   -webkit-user-select: none;
 }
 
+.category.xl{
+  width: 95px;
+  height: 85px;
+  padding-top: 10px;
+}
+
 .category.circle-lined-up {
   margin-left: 0;
   top: -50px;
@@ -58,7 +73,7 @@ input {
   display: inline;
   font-family: 'Amatic SC', cursive;
   color: #FFFFFF;
-  font-size: 30px;
+  font-size: 27px;
 }
 
 #circle-wrapper .category.circle-lined-up.circle-active {
@@ -66,14 +81,14 @@ input {
   display: inline;
   font-family: 'Amatic SC', cursive;
   color: #FFFFFF;
-  font-size: 30px;
+  font-size: 27px;
 }
 
 #circle-wrapper .category.circle-lined-up.circle-active span{
   display: inline;
   font-family: 'Amatic SC', cursive;
   color: #FFFFFF;
-  font-size: 30px;
+  font-size: 27px;
 }
 
 a {
@@ -86,6 +101,14 @@ a {
 }
 
 #coffee:hover {
+  background: #F36559;
+}
+
+#bakery {
+  background: url(/img/bread.png) center center no-repeat;
+}
+
+#bakery:hover {
   background: #F36559;
 }
 
@@ -129,6 +152,13 @@ a {
   background: #F36559;
 }
 
+#happyhour {
+  background: url(/img/beer.png) center center no-repeat;
+}
+
+#happyhour:hover {
+  background: #F36559;
+}
 
 #drinks {
   background: url(/img/wine.png) center center no-repeat;
