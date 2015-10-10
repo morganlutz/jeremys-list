@@ -2,6 +2,7 @@
 var Circles = {
         __wrapperID: 'circle-wrapper',
         __startAngle: 141,
+        __restaurantCache: {},
 
         __classes: {
           circle: 'category',
@@ -79,11 +80,17 @@ var Circles = {
         var isActive = this.classList.contains('circle-active'),
         circles = $('.category').removeClass('circle-active');
 
-        $.get('/category/' + category + '/restaurants').done(function (restaurantHTML) {
-          $('#restaurants-info-container').html(restaurantHTML);
-        }).fail(function(error){
-          console.log('AJAX ERROR', error);
-        });
+        if(Circles.__restaurantCache[category]) {
+          $('restaurants-info-container').html(Circles.__restaurantCache[category]);
+        } else {
+          $.get('/category/' + category + '/restaurants').done(function (restaurantHTML) {
+            Circles.__restaurantCache[category] = restaurantHTML;
+            $('#restaurants-info-container').html(restaurantHTML);
+          }).fail(function(error){
+            console.log('AJAX ERROR', error);
+          });
+
+        };
 
 
         circles.removeClass('circle-active');

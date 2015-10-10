@@ -12,6 +12,11 @@ ul {
   text-align: left;
 }
 
+#restaurants-info-container {
+  position: absolute;
+  margin-top: -550px;
+}
+
 #list {
   font-family: Lobster;
   font-size:60px;
