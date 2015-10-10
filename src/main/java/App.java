@@ -20,9 +20,9 @@ public class App {
     return new ModelAndView(model, layout);
   }, new VelocityTemplateEngine());
 
-  get("/category/:category", (request, response) -> {
+  get("/category/:type", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    String category = request.params("category");
+    String category = request.params("type");
       if(CATEGORIES.contains(category)) {
         Category newCategory = Category.findByType(category);
         model.put("restaurants", Restaurant.all());
@@ -33,9 +33,9 @@ public class App {
       } return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());;
 
-  get("/category/:category/restaurants", (request, response) -> {
+  get("/category/:type/restaurants", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    String category = request.params(":category");
+    String category = request.params("type");
     Category newCategory = Category.findByType(category);
     model.put("restaurants", Restaurant.all());
     model.put("categories", Category.all());

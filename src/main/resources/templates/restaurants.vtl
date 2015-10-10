@@ -19,6 +19,11 @@
   <p>T-TH : 11:00 AM - 12:00 AM</p>
   <p>F-SU : 11:00 AM -  3:00 AM</p>
 </div>
+<ul>
+  #foreach ($category in $categories)
+  <li>$category.getType()</li>
+  #end
+</ul>
 
 <ul>
   #foreach ($restaurant in $newCategory.getRestaurants())
