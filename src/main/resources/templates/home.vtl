@@ -3,14 +3,22 @@
   <div id='circle-wrapper'>
     <h1 id="list">Jeremy's List</h1>
         <a data-category="coffee" class="category" id="coffee" href='javascript:void(0);'><span>coffee</span></a>
-        <a data-category="breakfast" class="category" id="breakfast" href='javascript:void(0);'><span>breakfast</span></a>
+        <a data-category="bakery" class="category" id="bakery" href='javascript:void(0);'><span>bakery</span></a>
+        <a data-category="breakfast" class="category xl" id="breakfast" href='javascript:void(0);'><span>breakfast && brunch</span></a>
         <a data-category="foodcart" class="category" id="foodcart" href='javascript:void(0);'><span>food cart</span></a>
         <a data-category="lunch" class="category" id="lunch" href='javascript:void(0);'><span>lunch</span></a>
         <a data-category="dinner" class="category" id="dinner" href='javascript:void(0);'><span>dinner</span></a>
         <a data-category="dessert" class="category" id="dessert" href='javascript:void(0);'><span>dessert</span></a>
-        <a data-category="drinks" class="category" id="drinks" href='javascript:void(0);'><span>drinks</span></a>
+        <a data-category="happyhour" class="category" id="happyhour" href='javascript:void(0);'><span>happy hour</span></a>
+        <a data-category="drinks" class="category" id="drinks" href='javascript:void(0);'><span>late night</span></a>
   </div>
 
   <br><br>
 
-    #include ( $restaurants.vtl )
+    <div id="restaurants-info-container">
+
+        #parse ("templates/restaurants.vtl")
+
+    </div>
+<br>
+<div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
