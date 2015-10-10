@@ -83,14 +83,19 @@ var Circles = {
         if(Circles.__restaurantCache[category]) {
           $('restaurants-info-container').html(Circles.__restaurantCache[category]);
         } else {
-          $.get('/category/' + category + '/restaurants').done(function (restaurantHTML) {
-            Circles.__restaurantCache[category] = restaurantHTML;
-            $('#restaurants-info-container').html(restaurantHTML);
-          }).fail(function(error){
+          $.get('/category/' + category + '/restaurants')
+            .done(
+              function (category, restaurantHTML) {
+                Circles.__restaurantCache[category] = restaurantHTML;
+                $('#restaurants-info-container').html(restaurantHTML);
+              }.bind(null, category)
+            )
+            .fail(
+              function(error) {
             console.log('AJAX ERROR', error);
-          });
-
-        };
+          }
+        );
+      };
 
 
         circles.removeClass('circle-active');
@@ -104,7 +109,7 @@ var Circles = {
           Circles.formLine();
 
         }
-      });
+      };
 
       window.addEventListener('popstate', function (event) {
         Circles.setActiveFromURL();
@@ -120,7 +125,7 @@ var Circles = {
           Circles.setActiveFromURL();
           Circles.formLine();
         }
-      }
+      };
 
       // create: function () {
       //   Circles.destroy();

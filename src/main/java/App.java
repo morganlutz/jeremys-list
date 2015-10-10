@@ -53,9 +53,7 @@ public class App {
     model.put("newCategory", newCategory);
     model.put("restaurants", Restaurant.all());
     model.put("categories", Category.all());
-    model.put("newCategory", newCategory);
-    model.put("template", "templates/restaurants.vtl");
-    return new ModelAndView(model, layout);
+    return new ModelAndView(model, "templates/restaurants.vtl");
     }, new VelocityTemplateEngine());;
 
   get("/add-restaurants", (request, response) -> {
