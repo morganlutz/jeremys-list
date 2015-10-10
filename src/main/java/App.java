@@ -22,14 +22,26 @@ public class App {
 
   get("/category/:category", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
-    String category = request.params(":category");
+    String category = request.params("category");
       if(CATEGORIES.contains(category)) {
+        Category newCategory = Category.findByType(category);
         model.put("restaurants", Restaurant.all());
         model.put("categories", Category.all());
         model.put("template", "templates/home.vtl");
       } else {
       response.redirect("/oops", 301);
       } return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());;
+
+  get("/category/:category/restaurants", (request, response) -> {
+    HashMap<String, Object> model = new HashMap<String, Object>();
+    String category = request.params(":category");
+    Category newCategory = Category.findByType(category);
+    model.put("restaurants", Restaurant.all());
+    model.put("categories", Category.all());
+    model.put("newCategory", newCategory);
+    model.put("template", "templates/restaurants.vtl");
+    return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());;
 
   get("/add-restaurants", (request, response) -> {

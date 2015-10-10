@@ -56,6 +56,16 @@ public class Category {
     }
   }
 
+  public static Category findByType(String type) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql ="SELECT * FROM categories WHERE type=:type";
+      Category category = con.createQuery(sql)
+        .addParameter("type", type)
+        .executeAndFetchFirst(Category.class);
+      return category;
+    }
+  }
+
   public void update(String type) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE categories SET type=:type WHERE id=:id";

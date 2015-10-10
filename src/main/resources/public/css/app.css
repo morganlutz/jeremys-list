@@ -1,4 +1,4 @@
-/*set b/g color here if necessary*/
+/*set b/g color here if necessary, inside html/body rule*/
 html,body {
   height:100%;
 }
@@ -138,7 +138,5 @@ a {
   background: #F36559;
 }
 
-
-
 /*
-#F26558*/
+#F26558 - lighter pink shade*/

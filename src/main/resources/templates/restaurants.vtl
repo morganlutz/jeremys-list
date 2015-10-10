@@ -1,0 +1,34 @@
+<div id="restaurant">
+  <h4>Spaghetti Town</h4>
+  <p>2300 SE 4th Street, Portland, OR 97222</p>
+  <p>(855) 444 - 3333</p>
+  <p><a href="#">Website</a></p>
+  <p><a href="#">Yelp Review</a></p>
+  <p>Closed Mondays.</p>
+  <p>T-TH : 11:00 AM - 12:00 AM</p>
+  <p>F-SU : 11:00 AM -  3:00 AM</p>
+</div>
+
+<div id="restaurant">
+  <h4>Spaghetti Town</h4>
+  <p>2300 SE 4th Street, Portland, OR 97222</p>
+  <p>(855) 444 - 3333</p>
+  <p><a href="#">Website</a></p>
+  <p><a href="#">Yelp Review</a></p>
+  <p>Closed Mondays.</p>
+  <p>T-TH : 11:00 AM - 12:00 AM</p>
+  <p>F-SU : 11:00 AM -  3:00 AM</p>
+</div>
+
+<ul>
+  #foreach ($restaurant in $newCategory.getRestaurants())
+    <li>
+      $restaurant.getName()
+      $restaurant.getAddress()
+      $restaurant.getPhone()
+      $restaurant.getWebsite()
+      $restaurant.getYelp()
+      $restaurant.getHours()
+    </li>
+  #end
+</ul>

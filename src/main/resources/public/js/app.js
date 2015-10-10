@@ -1,3 +1,12 @@
+// //ajax requests
+// $.get('/category/coffee/restaurants').then(function (restaurantsHTML) {
+//   ...
+//   },
+//   function (error) {
+//      ...
+//    });
+
+//front end circles
 var Circles = {
         __wrapperID: 'circle-wrapper',
         __startAngle: 141,
@@ -58,32 +67,6 @@ var Circles = {
           }
         },
 
-        create: function () {
-          Circles.destroy();
-
-          var circle;
-
-          var countInput = document.getElementById('circle-count');
-
-          for (var i = 0; i < parseInt(countInput.value); i++) {
-            circle = document.createElement('div');
-
-            circle.className = Circles.__classes.circle;
-            circle.innerHTML = i + 1;
-
-            Circles.wrapper.appendChild(circle);
-          }
-
-          setTimeout(Circles.formCircle, 100);
-        },
-
-        destroy: function () {
-          var circles = Circles.circles;
-
-          for (var i = circles.length; i--;)
-            circles[i].parentNode.removeChild(circles[i]);
-        },
-
         setActiveFromURL: function () {
           var circles = Circles.circles;
           circles = $('.category').removeClass('circle-active');
@@ -123,7 +106,6 @@ var Circles = {
       }, true);
 
 
-
       function initializeCircles() {
         if(window.location.pathname === "/") {
           Circles.formCircle();
@@ -132,3 +114,29 @@ var Circles = {
           Circles.formLine();
         }
       }
+
+      // create: function () {
+      //   Circles.destroy();
+      //
+      //   var circle;
+      //
+      //   var countInput = document.getElementById('circle-count');
+      //
+      //   for (var i = 0; i < parseInt(countInput.value); i++) {
+      //     circle = document.createElement('div');
+      //
+      //     circle.className = Circles.__classes.circle;
+      //     circle.innerHTML = i + 1;
+      //
+      //     Circles.wrapper.appendChild(circle);
+      //   }
+      //
+      //   setTimeout(Circles.formCircle, 100);
+      // },
+      //
+      // destroy: function () {
+      //   var circles = Circles.circles;
+      //
+      //   for (var i = circles.length; i--;)
+      //     circles[i].parentNode.removeChild(circles[i]);
+      // },
