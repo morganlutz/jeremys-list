@@ -1,10 +1,4 @@
-// //ajax requests
-// $.get('/category/coffee/restaurants').then(function (restaurantsHTML) {
-//   ...
-//   },
-//   function (error) {
-//      ...
-//    });
+
 
 //front end circles
 var Circles = {
@@ -80,29 +74,37 @@ var Circles = {
 
        $(initializeCircles);
 
+
       $(document).on('click', 'a.category', function() {
         var category = this.getAttribute('data-category');
         history.pushState({}, category, '/category/' + category);
         var isActive = this.classList.contains('circle-active'),
-            circles = $('.category').removeClass('circle-active');
+        circles = $('.category').removeClass('circle-active');
+
+        $.get('/category/' + category + '/restaurants').done(function (restaurantHTML) {
+          $('#restaurant-info-container').html(restaurantHTML);
+        }).fail(function(error){
+          console.log('AJAX ERROR', error);
+        });
+
 
         circles.removeClass('circle-active');
 
         if (isActive) {
           // Circles.formCircle();
-          //show all restaurants in that category
 
           document.body.offsetWidth;
         }	else {
           this.classList.add('circle-active');
           Circles.formLine();
 
-
         }
       });
 
       window.addEventListener('popstate', function (event) {
         Circles.setActiveFromURL();
+
+
       }, true);
 
 
