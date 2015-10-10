@@ -1,6 +1,4 @@
 
-
-//front end circles
 var Circles = {
         __wrapperID: 'circle-wrapper',
         __startAngle: 141,
@@ -82,7 +80,7 @@ var Circles = {
         circles = $('.category').removeClass('circle-active');
 
         $.get('/category/' + category + '/restaurants').done(function (restaurantHTML) {
-          $('#restaurant-info-container').html(restaurantHTML);
+          $('#restaurants-info-container').html(restaurantHTML);
         }).fail(function(error){
           console.log('AJAX ERROR', error);
         });
