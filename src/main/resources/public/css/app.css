@@ -14,7 +14,18 @@ ul {
 
 #restaurants-info-container {
   position: absolute;
-  margin-top: -550px;
+  margin-top: -570px;
+  margin-left: 10px;
+  border-radius: 25px;
+  border: 7px solid #515473;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 600px;
+}
+
+.restaurant:hover {
+  background: #F36559;
+  font-color: #FFFFFF !important;
 }
 
 #list {
@@ -25,6 +36,20 @@ ul {
   margin-left: -275px;
   margin-top: -275px;
   -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
+}
+
+p.restaurant-name {
+  font-family: 'Amatic SC', cursive;
+  font-weight: bolder;
+  font-size: 35px;
+  color: #F36559;
+}
+
+p {
+  font-family: Century Gothic, sans-serif;
+  font-size: 20px;
+  color: #515473;
+  /*text-transform: lowercase;*/
 }
 
 #circle-wrapper {

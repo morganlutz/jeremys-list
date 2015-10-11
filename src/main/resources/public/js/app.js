@@ -67,6 +67,7 @@ var Circles = {
           newCategory.classList.add('circle-active');
           history.pushState({}, category, '/category/' + category);
           Circles.loadCategory(category);
+          Circles.formLine();
         },
 
         loadCategory: function (category) {
@@ -94,8 +95,6 @@ var Circles = {
       };
 
        $(initializeCircles);
-
-
 
       $(document).on('click', 'a.category', function() {
         circles = $('.category').removeClass('circle-active');
