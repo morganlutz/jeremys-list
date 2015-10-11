@@ -61,16 +61,22 @@ var Circles = {
           }
         },
 
-        setActive: function (category) {
+        setActive: function (category, isViaPopstate) {
+          debugger;
         //  circles = Circles.circles;
           var newCategory = document.getElementById(category);
           newCategory.classList.add('circle-active');
-          history.pushState({}, category, '/category/' + category);
+
+          if(!isViaPopstate) {
+            history.pushState({}, category, '/category/' + category);
+          }
+
           Circles.loadCategory(category);
           Circles.formLine();
         },
 
         loadCategory: function (category) {
+          debugger;
           if(Circles.__restaurantCache[category]) {
             $('#restaurants-info-container').html(Circles.__restaurantCache[category]);
           } else {
@@ -85,6 +91,7 @@ var Circles = {
         },
 
         getActiveCategoryFromURL: function() {
+          debugger;
           var splitPath = window.location.pathname.split('/');
           if(Circles.__CATEGORIES.indexOf(splitPath[2]) > -1 ) {
             return splitPath[2];
@@ -97,25 +104,26 @@ var Circles = {
        $(initializeCircles);
 
       $(document).on('click touchend', 'a.category', function() {
+        debugger;
         circles = $('.category').removeClass('circle-active');
         circles.removeClass('circle-active');
         var category = this.getAttribute('data-category');
         Circles.setActive(category);
-        Circles.loadCategory(category);
         document.body.offsetWidth;
 
       });
 
       window.addEventListener('popstate', function (event) {
         circles = $('.category').removeClass('circle-active');
+        debugger;
         circles.removeClass('circle-active');
         var category = Circles.getActiveCategoryFromURL();
-        Circles.setActive(category);
-        Circles.loadCategory(category);
+        Circles.setActive(category, true);
       }, true);
 
 
       function initializeCircles() {
+        debugger;
         if(!Circles.getActiveCategoryFromURL()) {
           Circles.formCircle();
         } else {
