@@ -128,16 +128,12 @@ a {
   text-align: center;
 }
 
-#coffee {
-  background: url(/img/coffee.png) center center no-repeat;
-}
-
 #coffee:hover {
   background: #F36559;
 }
 
 #bakery {
-  background: url(/img/bread.png) center center no-repeat;
+  background: url(/img/bread.png);
 }
 
 #bakery:hover {
@@ -145,7 +141,7 @@ a {
 }
 
 #breakfast {
-  background: url(/img/eggs.png) center center no-repeat;
+  background: url(/img/eggs.png);
 }
 
 #breakfast:hover {
@@ -153,7 +149,7 @@ a {
 }
 
 #foodcart {
-  background: url(/img/food-cart.png) center center no-repeat;
+  background: url(/img/food-cart.png);
 }
 
 #foodcart:hover {
@@ -161,7 +157,7 @@ a {
 }
 
 #lunch {
-  background: url(/img/sandwich.png) center center no-repeat;
+  background: url(/img/sandwich.png);
 }
 
 #lunch:hover {
@@ -169,7 +165,7 @@ a {
 }
 
 #dinner {
-  background: url(/img/dinner.png) center center no-repeat;
+  background: url(/img/dinner.png);
 }
 
 #dinner:hover {
@@ -177,7 +173,7 @@ a {
 }
 
 #dessert {
-  background: url(/img/pie.png) center center no-repeat;
+  background: url(/img/pie.png);
 }
 
 #dessert:hover {
@@ -185,7 +181,7 @@ a {
 }
 
 #happyhour {
-  background: url(/img/beer.png) center center no-repeat;
+  background: url(/img/beer.png);
 }
 
 #happyhour:hover {
@@ -193,7 +189,7 @@ a {
 }
 
 #drinks {
-  background: url(/img/wine.png) center center no-repeat;
+  background: url(/img/wine.png);
 }
 
 #drinks:hover {
