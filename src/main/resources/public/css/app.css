@@ -73,6 +73,8 @@ p {
   margin-top: -50px;
   padding-top: 30px;
   border-radius: 500px;
+  background: url(/img/coffee.png) center center no-repeat;
+  background-size: 64px 64px;
   -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
   -webkit-transform: scale(0.001) rotate(0deg) translate(0px);
   border: 7px solid #515473;

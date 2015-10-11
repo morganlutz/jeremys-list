@@ -96,7 +96,7 @@ var Circles = {
 
        $(initializeCircles);
 
-      $(document).on('click', 'a.category', function() {
+      $(document).on('click touchend', 'a.category', function() {
         circles = $('.category').removeClass('circle-active');
         circles.removeClass('circle-active');
         var category = this.getAttribute('data-category');
