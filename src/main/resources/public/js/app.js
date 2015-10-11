@@ -62,27 +62,33 @@ var Circles = {
         },
 
         setActive: function (category) {
-          //marks circles as active and calls .loadCategory(category)
-          //also do history.pushState stuff
-          var circles = Circles.circles;
-          circles = $('.category').removeClass('circle-active');
-          var splitPath = window.location.pathname.split('/');
-          var circle = document.getElementById(splitPath[2]);
-            if (circle){
-              circle.classList.add('circle-active');
-            }
-          },
+        //  circles = Circles.circles;
+          var newCategory = document.getElementById(category);
+          newCategory.classList.add('circle-active');
+          history.pushState({}, category, '/category/' + category);
+          Circles.loadCategory(category);
+        },
 
         loadCategory: function (category) {
-          var category = getActiveCategoryFromURL();
+          if(Circles.__restaurantCache[category]) {
+            $('#restaurants-info-container').html(Circles.__restaurantCache[category]);
+          } else {
+            $.get('/category/' + category + '/restaurants').done(function (category, restaurantHTML) {
+                Circles.__restaurantCache[category] = restaurantHTML;
+                $('#restaurants-info-container').html(restaurantHTML);
+              }.bind(null, category)).fail(function(error) {
+                 console.log('AJAX ERROR', error);
+              }
+            );
+          }
         },
 
         getActiveCategoryFromURL: function() {
           var splitPath = window.location.pathname.split('/');
-          if(CATEGORIES.indexOf(splitPath[2]) > -1 ) {
+          if(Circles.__CATEGORIES.indexOf(splitPath[2]) > -1 ) {
             return splitPath[2];
           } else {
-            return CATEGORIES[0];
+            return Circles.__CATEGORIES[0];
           }
         }
       };
@@ -92,45 +98,21 @@ var Circles = {
 
 
       $(document).on('click', 'a.category', function() {
-        var category = this.getAttribute('data-category');
-        history.pushState({}, category, '/category/' + category);
-        var isActive = this.classList.contains('circle-active'),
         circles = $('.category').removeClass('circle-active');
-
-        if(Circles.__restaurantCache[category]) {
-          $('#restaurants-info-container').html(Circles.__restaurantCache[category]);
-        } else {
-          $.get('/category/' + category + '/restaurants')
-            .done(
-              function (category, restaurantHTML) {
-                Circles.__restaurantCache[category] = restaurantHTML;
-                $('#restaurants-info-container').html(restaurantHTML);
-              }.bind(null, category)
-            )
-            .fail(
-              function(error) {
-            console.log('AJAX ERROR', error);
-          }
-        );
-      }
-
-
         circles.removeClass('circle-active');
+        var category = this.getAttribute('data-category');
+        Circles.setActive(category);
+        Circles.loadCategory(category);
+        document.body.offsetWidth;
 
-        if (isActive) {
-          // Circles.formCircle();
-
-          document.body.offsetWidth;
-        }	else {
-          this.classList.add('circle-active');
-          Circles.formLine();
-        }
       });
 
       window.addEventListener('popstate', function (event) {
-        Circles.setActiveFromURL();
-
-
+        circles = $('.category').removeClass('circle-active');
+        circles.removeClass('circle-active');
+        var category = Circles.getActiveCategoryFromURL();
+        Circles.setActive(category);
+        Circles.loadCategory(category);
       }, true);
 
 
@@ -138,7 +120,7 @@ var Circles = {
         if(window.location.pathname === "/") {
           Circles.formCircle();
         } else {
-          Circles.setActiveFromURL();
+          Circles.setActive(Circles.getActiveCategoryFromURL());
           Circles.formLine();
         }
       };
