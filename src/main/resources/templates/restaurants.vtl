@@ -3,13 +3,15 @@
     <div class="restaurant">
         <span class="show-color">
         <li>
-          <p class="restaurant-name">$restaurant.getName()</p>
-          <p> open: $restaurant.getHours()</p>
+          <h2 class="restaurant-name">$restaurant.getName()</h2>
           <p>
-          $restaurant.getAddress()
-          $restaurant.getPhone()
-          <a class="clickable" href="$restaurant.getWebsite()">website</a>
-          <a class="clickable" href="$restaurant.getYelp()">yelp</a>
+            open: $restaurant.getHours()
+            <a class="clickable" href="$restaurant.getWebsite()">website</a>
+            <a class="clickable" href="$restaurant.getYelp()">yelp</a>
+          </p>
+          <p>
+            $restaurant.getAddress()
+            $restaurant.getPhone()
           </p>
         </li>
       </span>
