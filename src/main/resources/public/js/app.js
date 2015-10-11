@@ -3,6 +3,7 @@ var Circles = {
         __wrapperID: 'circle-wrapper',
         __startAngle: 141,
         __restaurantCache: {},
+        __CATEGORIES: ['coffee', 'bakery', 'breakfast', 'foodcart', 'lunch', 'dinner', 'dessert', 'happyhour', 'drinks'],
 
         __classes: {
           circle: 'category',
@@ -60,7 +61,9 @@ var Circles = {
           }
         },
 
-        setActiveFromURL: function () {
+        setActive: function (category) {
+          //marks circles as active and calls .loadCategory(category)
+          //also do history.pushState stuff
           var circles = Circles.circles;
           circles = $('.category').removeClass('circle-active');
           var splitPath = window.location.pathname.split('/');
@@ -68,10 +71,24 @@ var Circles = {
             if (circle){
               circle.classList.add('circle-active');
             }
+          },
+
+        loadCategory: function (category) {
+          var category = getActiveCategoryFromURL();
+        },
+
+        getActiveCategoryFromURL: function() {
+          var splitPath = window.location.pathname.split('/');
+          if(CATEGORIES.indexOf(splitPath[2]) > -1 ) {
+            return splitPath[2];
+          } else {
+            return CATEGORIES[0];
           }
-       };
+        }
+      };
 
        $(initializeCircles);
+
 
 
       $(document).on('click', 'a.category', function() {
@@ -81,7 +98,7 @@ var Circles = {
         circles = $('.category').removeClass('circle-active');
 
         if(Circles.__restaurantCache[category]) {
-          $('restaurants-info-container').html(Circles.__restaurantCache[category]);
+          $('#restaurants-info-container').html(Circles.__restaurantCache[category]);
         } else {
           $.get('/category/' + category + '/restaurants')
             .done(
@@ -95,7 +112,7 @@ var Circles = {
             console.log('AJAX ERROR', error);
           }
         );
-      };
+      }
 
 
         circles.removeClass('circle-active');
@@ -107,9 +124,8 @@ var Circles = {
         }	else {
           this.classList.add('circle-active');
           Circles.formLine();
-
         }
-      };
+      });
 
       window.addEventListener('popstate', function (event) {
         Circles.setActiveFromURL();
