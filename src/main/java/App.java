@@ -7,13 +7,23 @@ import java.util.List;
 import java.util.Arrays;
 
 public class App {
+  static String APP_ROOT;
+  static Boolean RELEASE = false;
+
   public static void main(String[] args) {
   staticFileLocation("/public");
   String layout = "templates/layout.vtl";
   List<String> CATEGORIES = Arrays.asList("coffee", "bakery","breakfast","foodcart","lunch", "dinner", "happyhour","dessert", "drinks");
 
+  if (RELEASE) {
+    APP_ROOT = "/jeremys-list";
+  } else {
+    APP_ROOT = "/jeremys-list-dev";
+  }
+
   get("/", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
+    model.put("APP_ROOT", APP_ROOT);
     model.put("restaurants", Restaurant.all());
     model.put("categories", Category.all());
     model.put("template", "templates/home.vtl");
@@ -38,6 +48,7 @@ public class App {
     HashMap<String, Object> model = new HashMap<String, Object>();
     String category = request.params("type");
     Category newCategory = Category.findByType(category);
+    model.put("APP_ROOT", APP_ROOT);
     model.put("newCategory", newCategory);
     model.put("restaurants", Restaurant.all());
     model.put("categories", Category.all());
@@ -50,6 +61,7 @@ public class App {
     HashMap<String, Object> model = new HashMap<String, Object>();
     String category = request.params("type");
     Category newCategory = Category.findByType(category);
+    model.put("APP_ROOT", APP_ROOT);
     model.put("newCategory", newCategory);
     model.put("restaurants", Restaurant.all());
     model.put("categories", Category.all());
@@ -58,6 +70,7 @@ public class App {
 
   get("/add-restaurants", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
+    model.put("APP_ROOT", APP_ROOT);
     model.put("restaurants", Restaurant.all());
     model.put("categories", Category.all());
     model.put("template", "templates/admin.vtl");
