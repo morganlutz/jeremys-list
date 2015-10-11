@@ -10,15 +10,16 @@ public class App {
   static String APP_ROOT;
   static Boolean RELEASE = false;
 
+
   public static void main(String[] args) {
   staticFileLocation("/public");
   String layout = "templates/layout.vtl";
   List<String> CATEGORIES = Arrays.asList("coffee", "bakery","breakfast","foodcart","lunch", "dinner", "happyhour","dessert", "drinks");
 
   if (RELEASE) {
-    APP_ROOT = "/jeremys-list";
+    APP_ROOT = "/jeremys-list/";
   } else {
-    APP_ROOT = "/jeremys-list-dev";
+    APP_ROOT = "";
   }
 
   get("/", (request, response) -> {

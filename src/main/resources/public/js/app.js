@@ -89,7 +89,7 @@ var Circles = {
           if(Circles.__CATEGORIES.indexOf(splitPath[2]) > -1 ) {
             return splitPath[2];
           } else {
-            return Circles.__CATEGORIES[0];
+            return null;
           }
         }
       };
@@ -116,7 +116,7 @@ var Circles = {
 
 
       function initializeCircles() {
-        if(window.location.pathname === "/") {
+        if(!Circles.getActiveCategoryFromURL()) {
           Circles.formCircle();
         } else {
           Circles.setActive(Circles.getActiveCategoryFromURL());
