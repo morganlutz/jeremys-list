@@ -101,10 +101,10 @@ var Circles = {
             // path after it, the category itself.
             if (splitPath[i] === 'category' && splitPath[i + 1]) {
               // Return the category.
-              return splitPath[i + 1]; 
+              return splitPath[i + 1];
             }
           }
-          
+
           // Unable to find a valid cateogry in the path.
           return null;
         },
@@ -121,7 +121,7 @@ var Circles = {
       };
 
       $(function () {
-        // Since we have no yet loaded restaurant info, hide the container for it.
+        // Since we have not yet loaded restaurant info, hide the container for it.
         $('#restaurants-info-container').hide();
 
         // Doing this in a timeout should fix the exploding circle bug.
@@ -134,6 +134,7 @@ var Circles = {
           circles.removeClass('circle-active');
           var category = this.getAttribute('data-category');
           Circles.setActive(category);
+          event.preventDefault();
           document.body.offsetWidth;
 
         })
