@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class App {
   static String APP_ROOT;
-  static Boolean PRODUCTION = false;
+  static Boolean PRODUCTION = true;
 
   public static void main(String[] args) {
   staticFileLocation("/public");
@@ -22,7 +22,7 @@ public class App {
     APP_ROOT = args[0];
   } else {
     if (PRODUCTION) {
-      APP_ROOT = "/jeremys-list/";
+      APP_ROOT = "/jeremys-list-dev/";
     } else {
       APP_ROOT = "";
     }
