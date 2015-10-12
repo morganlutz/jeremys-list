@@ -67,7 +67,7 @@ var Circles = {
           newCategory.classList.add('circle-active');
 
           if(!isViaPopstate) {
-            history.pushState({}, category, Circles.APP_ROOT = '/category/' + category);
+            history.pushState({}, category, Circles.APP_ROOT + '/category/' + category);
           }
 
           Circles.loadCategory(category);
