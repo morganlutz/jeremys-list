@@ -28,14 +28,14 @@ public class App {
     }
   }
 
-  get("css/app.css", (request, response) -> {
-    LessSource.FileSource less = new LessSource.FileSource(new File("src/main/resources/public/app.css"));
-    LessCompiler compiler = new DefaultLessCompiler();
-    Configuration config = new Configuration();
-
-    config.addExternalVariable("@APP_PATH", "TEXT");
-    return compiler.compile(less, configuration).getCss();
-  });
+  // get("css/app.css", (request, response) -> {
+  //   LessSource.FileSource less = new LessSource.FileSource(new File("src/main/resources/public/app.css"));
+  //   LessCompiler compiler = new DefaultLessCompiler();
+  //   Configuration config = new Configuration();
+  //
+  //   config.addExternalVariable("@APP_PATH", "TEXT");
+  //   return compiler.compile(less, configuration).getCss();
+  // });
 
   get("/", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
