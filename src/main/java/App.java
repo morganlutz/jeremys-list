@@ -8,20 +8,26 @@ import java.util.Arrays;
 
 public class App {
   static String APP_ROOT;
-  static Boolean RELEASE = false;
-
+  static Boolean PRODUCTION = false;
 
   public static void main(String[] args) {
   staticFileLocation("/public");
   String layout = "templates/layout.vtl";
   List<String> CATEGORIES = Arrays.asList("coffee", "bakery","breakfast","foodcart","lunch", "dinner", "happyhour","dessert", "drinks");
 
-  if (RELEASE) {
-    APP_ROOT = "/jeremys-list/";
+  // This lets us pass in a variable from gradle to set the APP_ROOT from the command line like so:
+  // gradle run -PAPP_ROOT="/jeremys-list/"
+  // Yes, there's no space between the -P and APP_ROOT.
+  if (args.length > 0) {
+    APP_ROOT = args[0];
   } else {
-    APP_ROOT = "";
+    if (PRODUCTION) {
+      APP_ROOT = "/jeremys-list/";
+    } else {
+      APP_ROOT = "";
+    }
   }
-
+  
   get("/", (request, response) -> {
     HashMap<String, Object> model = new HashMap<String, Object>();
     model.put("APP_ROOT", APP_ROOT);
