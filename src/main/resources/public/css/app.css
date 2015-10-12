@@ -29,6 +29,7 @@ ul {
 }
 
 #list {
+  display: none;
   font-family: Lobster;
   font-size:60px;
   color: #515473;
@@ -163,7 +164,7 @@ a {
 }
 
 #bakery {
-  background-image: url(/img/bread.png);
+  background-image: url(/jeremys-list-dev/img/bread.png);
 }
 
 #bakery:hover {
@@ -171,7 +172,7 @@ a {
 }
 
 #breakfast {
-  background-image: url(/img/eggs.png);
+  background-image: url(/jeremys-list-dev/img/eggs.png);
 }
 
 #breakfast:hover {
@@ -179,7 +180,7 @@ a {
 }
 
 #foodcart {
-  background-image: url(/img/food-cart.png);
+  background-image: url(/jeremys-list-dev/img/food-cart.png);
 }
 
 #foodcart:hover {
@@ -187,7 +188,7 @@ a {
 }
 
 #lunch {
-  background-image: url(/img/sandwich.png);
+  background-image: url(/jeremys-list-dev/img/sandwich.png);
 }
 
 #lunch:hover {
@@ -195,7 +196,7 @@ a {
 }
 
 #dinner {
-  background-image: url(/img/dinner.png);
+  background-image: url(/jeremys-list-dev/img/dinner.png);
 }
 
 #dinner:hover {
@@ -203,7 +204,7 @@ a {
 }
 
 #dessert {
-  background-image: url(/img/pie.png);
+  background-image: url(/jeremys-list-dev/img/pie.png);
 }
 
 #dessert:hover {
@@ -211,7 +212,7 @@ a {
 }
 
 #happyhour {
-  background-image: url(/img/beer.png);
+  background-image: url(/jeremys-list-dev/img/beer.png);
 }
 
 #happyhour:hover {
@@ -219,7 +220,7 @@ a {
 }
 
 #drinks {
-  background-image: url(/img/wine.png);
+  background-image: url(/jeremys-list-dev/img/wine.png);
 }
 
 #drinks:hover {
