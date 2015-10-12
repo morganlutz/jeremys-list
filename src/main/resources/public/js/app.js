@@ -62,7 +62,6 @@ var Circles = {
         },
 
         setActive: function (category, isViaPopstate) {
-          debugger;
         //  circles = Circles.circles;
           var newCategory = document.getElementById(category);
           newCategory.classList.add('circle-active');
@@ -76,13 +75,14 @@ var Circles = {
         },
 
         loadCategory: function (category) {
-          debugger;
+          // Add .show to ensure the container is displayed whenever there is data.
+
           if(Circles.__restaurantCache[category]) {
-            $('#restaurants-info-container').html(Circles.__restaurantCache[category]);
+            $('#restaurants-info-container').html(Circles.__restaurantCache[category]).show('fast');
           } else {
             $.get('/category/' + category + '/restaurants').done(function (category, restaurantHTML) {
                 Circles.__restaurantCache[category] = restaurantHTML;
-                $('#restaurants-info-container').html(restaurantHTML);
+                $('#restaurants-info-container').html(restaurantHTML).show('fast');
               }.bind(null, category)).fail(function(error) {
                  console.log('AJAX ERROR', error);
               }
@@ -91,40 +91,72 @@ var Circles = {
         },
 
         getActiveCategoryFromURL: function() {
-          debugger;
           var splitPath = window.location.pathname.split('/');
           if(Circles.__CATEGORIES.indexOf(splitPath[2]) > -1 ) {
             return splitPath[2];
           } else {
             return null;
           }
+        },
+
+        // Self explanitory!?!?
+        goHome: function (isViaPopstate) {
+          if (!isViaPopstate)
+            history.pushState({}, '', '/');
+
+          Circles.formCircle();
+
+          $('#restaurants-info-container').hide('fast'); // Hide the container when there is nothing in it.
         }
       };
 
-       $(initializeCircles);
+      $(function () {
+        // Since we have no yet loaded restaurant info, hide the container for it.
+        $('#restaurants-info-container').hide();
 
-      $(document).on('click touchend', 'a.category', function() {
-        debugger;
-        circles = $('.category').removeClass('circle-active');
-        circles.removeClass('circle-active');
-        var category = this.getAttribute('data-category');
-        Circles.setActive(category);
-        document.body.offsetWidth;
-
+        // Doing this in a timeout should fix the exploding circle bug.
+        setTimeout(initializeCircles, 100);
       });
+
+      $(document)
+        .on('click touchend', 'a.category', function() {
+          circles = $('.category').removeClass('circle-active');
+          circles.removeClass('circle-active');
+          var category = this.getAttribute('data-category');
+          Circles.setActive(category);
+          document.body.offsetWidth;
+
+        })
+
+        // Chain another .on to bind to the go-home link.
+        .on('click', '#go-home', function (event) {
+          event.preventDefault(); // Prevents the link from actually doing anything so I can control it with JS.
+
+          Circles.goHome();
+        });
 
       window.addEventListener('popstate', function (event) {
         circles = $('.category').removeClass('circle-active');
-        debugger;
         circles.removeClass('circle-active');
         var category = Circles.getActiveCategoryFromURL();
-        Circles.setActive(category, true);
+
+        if (category)
+          Circles.setActive(category, true);
+        else
+          Circles.goHome(true); // This should fix the back-to-homepage bug.
       }, true);
 
 
       function initializeCircles() {
-        debugger;
+        // This is called once the circles are moved into position to ensure that the animation duration is set when loaded in line-mode.
+        setTimeout(function () {
+          document.body.classList.add('page-loaded');
+        }, 1000);
+
         if(!Circles.getActiveCategoryFromURL()) {
+          // When loading in circle mode, add page-loaded so that the animation will show.
+          document.body.classList.add('page-loaded');
+
           Circles.formCircle();
         } else {
           Circles.setActive(Circles.getActiveCategoryFromURL());

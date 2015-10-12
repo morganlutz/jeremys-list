@@ -35,8 +35,17 @@ ul {
   position: absolute;
   margin-left: -275px;
   margin-top: -275px;
+  background: #fff;  /* Added a white background to info so it doesn't look weird when animating */
   -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
+
+  /* When page is first loaded, set the duration to 0 so that the logo will not have an animation. */
+  -webkit-transition-duration: 0;
 }
+
+  /* Once the page is loaded (or it loaded in circle mode), make sure the animation duration is set. */
+  body.page-loaded #list {
+    -webkit-transition-duration: 0.3s;
+  }
 
 a.clickable {
   /*float: right;*/
@@ -77,6 +86,7 @@ p {
 }
 
 .category {
+  z-index: 1; /* This ensures that the circles are on top of the list when animating from the home page. */
   position: absolute;
   width: 95px;
   height: 65px;
@@ -86,14 +96,21 @@ p {
   margin-top: -50px;
   padding-top: 30px;
   border-radius: 500px;
-  background: url(/img/coffee.png) center center no-repeat;
+  background: #fff url(/img/coffee.png) center center no-repeat; /* Added a white background to circles so it doesn't look weird when animating */
   background-size: 64px 64px;
   -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
   -webkit-transform: scale(0.001) rotate(0deg) translate(0px);
   border: 7px solid #515473;
   cursor: default;
   -webkit-user-select: none;
+  /* When page is first loaded, set the duration to 0 so that line-mode will not have an animation. */
+  -webkit-transition-duration: 0;
 }
+
+  /* Once the page is loaded (or it loaded in circle mode), make sure the animation duration is set. */
+  body.page-loaded .category {
+    -webkit-transition-duration: 0.3s;
+  }
 
 .category.xl{
   width: 95px;
