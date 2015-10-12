@@ -67,7 +67,7 @@ var Circles = {
           newCategory.classList.add('circle-active');
 
           if(!isViaPopstate) {
-            history.pushState({}, category, '/category/' + category);
+            history.pushState({}, category, Circles.APP_ROOT = '/category/' + category);
           }
 
           Circles.loadCategory(category);
@@ -80,7 +80,7 @@ var Circles = {
           if(Circles.__restaurantCache[category]) {
             $('#restaurants-info-container').html(Circles.__restaurantCache[category]).show('fast');
           } else {
-            $.get('/category/' + category + '/restaurants').done(function (category, restaurantHTML) {
+            $.get(Circles.APP_ROOT + '/category/' + category + '/restaurants').done(function (category, restaurantHTML) {
                 Circles.__restaurantCache[category] = restaurantHTML;
                 $('#restaurants-info-container').html(restaurantHTML).show('fast');
               }.bind(null, category)).fail(function(error) {
@@ -92,17 +92,27 @@ var Circles = {
 
         getActiveCategoryFromURL: function() {
           var splitPath = window.location.pathname.split('/');
-          if(Circles.__CATEGORIES.indexOf(splitPath[2]) > -1 ) {
-            return splitPath[2];
-          } else {
-            return null;
+
+          // This is a big change. Since we don't know exactly where the category may appear in the URL, we
+          // have to loop over each part of the path. Once we reach the part of the path that contains the word "category",
+          // it can be assumed that the next part of the path is the actual category we need.
+          for (var i = 0; i < splitPath.length; i++) {
+            // Once we reach the "category" part of the path, check to make sure that there is another
+            // path after it, the category itself.
+            if (splitPath[i] === 'category' && splitPath[i + 1]) {
+              // Return the category.
+              return splitPath[i + 1]; 
+            }
           }
+          
+          // Unable to find a valid cateogry in the path.
+          return null;
         },
 
         // Self explanitory!?!?
         goHome: function (isViaPopstate) {
           if (!isViaPopstate)
-            history.pushState({}, '', '/');
+            history.pushState({}, '', Circles.APP_ROOT);
 
           Circles.formCircle();
 
