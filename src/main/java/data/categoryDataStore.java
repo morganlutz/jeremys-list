@@ -43,6 +43,16 @@ public class categoryDataStore extends Category {
     }
   }
 
+  public static Category findByType(String type) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql ="SELECT * FROM categories WHERE type=:type";
+      Category category = con.createQuery(sql)
+        .addParameter("type", type)
+        .executeAndFetchFirst(Category.class);
+      return category;
+    }
+  }
+
   public void update(String type) {
     try(Connection con = DB.sql2o.open()) {
       String sql = "UPDATE categories SET type=:type WHERE id=:id";
@@ -54,9 +64,11 @@ public class categoryDataStore extends Category {
   }
 
   public List<Restaurant> getRestaurants() {
-    String sql = "SELECT restaurants.* FROM categories JOIN restaurant_category ON"+
-    "(restaurants.id = restaurant_category.restaurant_id) JOIN categories ON "+
-    "(restaurant_category.category_id = categories.id) WHERE categories.id=:category_id;";
+    String sql = "SELECT DISTINCT restaurants.* FROM categories JOIN restaurant_category ON (categories.id = restaurant_category.category_id) JOIN restaurants ON (restaurant_category.restaurant_id = restaurants.id) WHERE category_id=:category_id;";
+
+      // SELECT DISTINCT restaurants.* FROM categories JOIN restaurant_category ON (categories.id = restaurant_category.category_id)
+      //  JOIN restaurants ON (restaurant_category.restaurant_id = restaurants.id) WHERE category_id=:category_id;
+
     try(Connection con = DB.sql2o.open()) {
       List<Restaurant> restaurants = con.createQuery(sql)
         .addParameter("category_id", this.getId())
@@ -74,6 +86,16 @@ public class categoryDataStore extends Category {
           .executeUpdate();
     }
   }
+
+  public void addRestaurant(Restaurant restaurant) {
+  try(Connection con = DB.sql2o.open()) {
+    String sql = "INSERT INTO restaurant_category (restaurant_id, category_id) VALUES (:restaurant_id, :category_id)";
+      con.createQuery(sql)
+        .addParameter("restaurant_id", restaurant.getId())
+        .addParameter("category_id", this.getId())
+        .executeUpdate();
+   }
+ }
 
   public void totalDeletion() {
     try(Connection con = DB.sql2o.open()) {

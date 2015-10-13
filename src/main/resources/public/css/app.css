@@ -1,33 +1,231 @@
+/*set b/g color here if necessary, inside html/body rule*/
 html,body {
-height:100%;
+  height:100%;
 }
 
-h1 {
-font-family: Arial,sans-serif
-font-size:80px;
-color:#DDCCEE;
+input {
+  display: none;
 }
 
-.lead {
-color:#DDCCEE;
+ul {
+  list-style-type: none;
+  text-align: left;
 }
 
-
-/* Custom container */
-.container-full {
-margin: 0 auto;
-width: 100%;
-min-height:100%;
-background-color:#110022;
-color:#eee;
-overflow:hidden;
+#restaurants-info-container {
+  position: absolute;
+  margin-top: -570px;
+  margin-left: 10px;
+  border-radius: 25px;
+  border: 7px solid #515473;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 600px;
 }
 
-.container-full a {
-color:#efefef;
-text-decoration:none;
+.restaurant:hover {
+  background: #F36559;
+  font-color: #FFFFFF !important;
 }
 
-.v-center {
-margin-top:7%;
+#list {
+  display: none;
+  font-family: Lobster;
+  font-size:60px;
+  color: #515473;
+  position: absolute;
+  margin-left: -275px;
+  margin-top: -275px;
+  background: #fff;  /* Added a white background to info so it doesn't look weird when animating */
+  -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
+
+  /* When page is first loaded, set the duration to 0 so that the logo will not have an animation. */
+  -webkit-transition-duration: 0;
 }
+
+  /* Once the page is loaded (or it loaded in circle mode), make sure the animation duration is set. */
+  body.page-loaded #list {
+    -webkit-transition-duration: 0.3s;
+  }
+
+a.clickable {
+  /*float: right;*/
+  background: #515473;
+  color: #FFFFFF;
+  width: 100px;
+  padding: 10px 10px;
+  margin: 5px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+h2.restaurant-name {
+  font-family: 'Amatic SC', cursive;
+  font-weight: bolder;
+  font-size: 55px;
+  color: #F36559;
+  margin-bottom: -15px;
+  margin-top: -15px;
+}
+
+p {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 20px;
+  color: #515473;
+  /*text-transform: lowercase;*/
+}
+
+#circle-wrapper {
+  position: relative;
+  left: 50%;
+  top: 100px;
+  margin-left: -250px;
+  width: 498px;
+  height: 498px;
+  padding-top: 290px;
+  text-align: center;
+}
+
+.category {
+  z-index: 1; /* This ensures that the circles are on top of the list when animating from the home page. */
+  position: absolute;
+  width: 95px;
+  height: 65px;
+  left: 50%;
+  top: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  padding-top: 30px;
+  border-radius: 500px;
+  background: #fff url(/img/coffee.png) center center no-repeat; /* Added a white background to circles so it doesn't look weird when animating */
+  background-size: 64px 64px;
+  -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease, margin-left 0.3s ease, left 0.3s ease, top 0.3s ease;
+  -webkit-transform: scale(0.001) rotate(0deg) translate(0px);
+  border: 7px solid #515473;
+  cursor: default;
+  -webkit-user-select: none;
+  /* When page is first loaded, set the duration to 0 so that line-mode will not have an animation. */
+  -webkit-transition-duration: 0;
+}
+
+  /* Once the page is loaded (or it loaded in circle mode), make sure the animation duration is set. */
+  body.page-loaded .category {
+    -webkit-transition-duration: 0.3s;
+  }
+
+.category.xl{
+  width: 95px;
+  height: 85px;
+  padding-top: 10px;
+}
+
+.category.circle-lined-up {
+  margin-left: 0;
+  top: -50px;
+}
+
+.category.circle-lined-up.circle-one-circle {
+  margin-left: -50px;
+}
+
+.category span {
+  display: none;
+}
+
+.category:hover span{
+  display: inline;
+  font-family: 'Amatic SC', cursive;
+  color: #FFFFFF;
+  font-size: 27px;
+}
+
+#circle-wrapper .category.circle-lined-up.circle-active {
+  background: #F36559;
+  display: inline;
+  font-family: 'Amatic SC', cursive;
+  color: #FFFFFF;
+  font-size: 27px;
+}
+
+#circle-wrapper .category.circle-lined-up.circle-active span{
+  display: inline;
+  font-family: 'Amatic SC', cursive;
+  color: #FFFFFF;
+  font-size: 27px;
+}
+
+a {
+  text-decoration: none;
+  text-align: center;
+}
+
+#coffee:hover {
+  background: #F36559;
+}
+
+#bakery {
+  background-image: url(/jeremys-list-dev/img/bread.png);
+}
+
+#bakery:hover {
+  background: #F36559;
+}
+
+#breakfast {
+  background-image: url(/jeremys-list-dev/img/eggs.png);
+}
+
+#breakfast:hover {
+  background: #F36559;
+}
+
+#foodcart {
+  background-image: url(/jeremys-list-dev/img/food-cart.png);
+}
+
+#foodcart:hover {
+  background: #F36559;
+}
+
+#lunch {
+  background-image: url(/jeremys-list-dev/img/sandwich.png);
+}
+
+#lunch:hover {
+  background: #F36559;
+}
+
+#dinner {
+  background-image: url(/jeremys-list-dev/img/dinner.png);
+}
+
+#dinner:hover {
+  background: #F36559;
+}
+
+#dessert {
+  background-image: url(/jeremys-list-dev/img/pie.png);
+}
+
+#dessert:hover {
+  background: #F36559;
+}
+
+#happyhour {
+  background-image: url(/jeremys-list-dev/img/beer.png);
+}
+
+#happyhour:hover {
+  background: #F36559;
+}
+
+#drinks {
+  background-image: url(/jeremys-list-dev/img/wine.png);
+}
+
+#drinks:hover {
+  background: #F36559;
+}
+
+/*
+#F26558 - lighter pink shade*/

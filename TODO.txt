@@ -1,0 +1,6 @@
+(A) add fixed width and height to link boxes +Styling @app.css
+(B) change restaurants font to white on hover +Styling @app.css
+(C) round corners of restaurant highlights +Styling @app.css
+(D) add arrow on right hand side to restaurant:hover +Styling @app.css
+
+(A) fix back button bug +Bugs @app.js

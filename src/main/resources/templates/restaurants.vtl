@@ -1,0 +1,20 @@
+<ul>
+  #foreach ($restaurant in $newCategory.getRestaurants())
+    <div class="restaurant">
+        <span class="show-color">
+        <li>
+          <div class="name-and-links">
+            <h2 class="restaurant-name">$restaurant.getName()</h2>
+            <a class="clickable" href="$restaurant.getWebsite()">website</a>
+            <a class="clickable" href="$restaurant.getYelp()">yelp</a>
+          </div>
+          <p>  open: $restaurant.getHours()</p>
+          <p>
+            $restaurant.getAddress()
+            $restaurant.getPhone()
+          </p>
+        </li>
+      </span>
+    </div>
+  #end
+</ul>

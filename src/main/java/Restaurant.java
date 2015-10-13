@@ -1,9 +1,56 @@
-package jeremyslist;
 import java.util.List;
 import org.sql2o.*;
 
+public class Restaurant {
+  private int id;
+  private String name;
+  private String address;
+  private String phone;
+  private String website;
+  private String yelp;
+  private String hours;
+  private int quadrant_id;
 
-public class restaurantDataStore {
+  public int getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public String getWebsite() {
+    return website;
+  }
+
+  public String getYelp() {
+    return yelp;
+  }
+
+  public String getHours() {
+    return hours;
+  }
+
+  public int getQuadrantId() {
+    return quadrant_id;
+  }
+
+  public Restaurant(String name, String address, String phone, String website, String yelp, String hours) {
+    this.name = name;
+    this.address = address;
+    this.phone = phone;
+    this.website = website;
+    this.yelp = yelp;
+    this.hours = hours;
+  }
 
   @Override
   public boolean equals(Object otherRestaurant) {
@@ -128,7 +175,7 @@ public class restaurantDataStore {
       }
     }
 
-  public List<Tag> getTags() {
+  public List<Tag> getTag() {
     try(Connection con = DB.sql2o.open()) {
       String sql = "SELECT restaurants_tags.* FROM restaurants JOIN restaurants_tags ON"+
       "(restaurants.id = restaurants_tags.restaurant_id) JOIN tags ON "+
@@ -160,7 +207,7 @@ public class restaurantDataStore {
     }
   }
 
-  public void deleteTag (Tag tag) {
+  public void deleteTag(Tag tag) {
     try(Connection con = DB.sql2o.open()) {
       String joinDeleteQuery = "DELETE FROM restaurants_tags WHERE restaurant_id=:restaurant_id AND tag_id:=tag_id";
         con.createQuery(joinDeleteQuery)
@@ -183,4 +230,19 @@ public class restaurantDataStore {
           .executeUpdate();
      }
    }
- }
+
+
+  // public static List<Restaurant> search(String address, int cuisine) {
+  //   try(Connection con = DB.sql2o.open()) {
+  //    String sql = "SELECT id, name, address, hours, cuisine_id FROM restaurants WHERE address=:address AND cuisine_id=:cuisine;";
+  //    return con.createQuery(sql)
+  //     .addParameter("address", address)
+  //     .addParameter("cuisine", cuisine)
+  //     .executeAndFetch(Restaurant.class);
+  //   }
+  // }
+
+
+
+
+}
