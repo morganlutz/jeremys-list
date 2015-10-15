@@ -12,8 +12,20 @@ ul {
   text-align: left;
 }
 
+#restaurant-and-map-wrapper {
+  display:inline-block;
+}
+
+#map {
+  height: 700px;
+  width: 500px;
+  position: relative;
+  float: right;
+}
+
 #restaurants-info-container {
-  position: absolute;
+  float: left;
+  position: relative;
   margin-top: -570px;
   margin-left: 10px;
   border-radius: 25px;
@@ -84,6 +96,7 @@ p {
   height: 498px;
   padding-top: 290px;
   text-align: center;
+  float: none;
 }
 
 .category {
@@ -164,7 +177,7 @@ a {
 }
 
 #bakery {
-  background-image: url(/jeremys-list-dev/img/bread.png);
+  background-image: url(/img/bread.png);
 }
 
 #bakery:hover {
@@ -172,7 +185,7 @@ a {
 }
 
 #breakfast {
-  background-image: url(/jeremys-list-dev/img/eggs.png);
+  background-image: url(/img/eggs.png);
 }
 
 #breakfast:hover {
@@ -180,7 +193,7 @@ a {
 }
 
 #foodcart {
-  background-image: url(/jeremys-list-dev/img/food-cart.png);
+  background-image: url(/img/food-cart.png);
 }
 
 #foodcart:hover {
@@ -188,7 +201,7 @@ a {
 }
 
 #lunch {
-  background-image: url(/jeremys-list-dev/img/sandwich.png);
+  background-image: url(/img/sandwich.png);
 }
 
 #lunch:hover {
@@ -196,7 +209,7 @@ a {
 }
 
 #dinner {
-  background-image: url(/jeremys-list-dev/img/dinner.png);
+  background-image: url(/img/dinner.png);
 }
 
 #dinner:hover {
@@ -204,7 +217,7 @@ a {
 }
 
 #dessert {
-  background-image: url(/jeremys-list-dev/img/pie.png);
+  background-image: url(/img/pie.png);
 }
 
 #dessert:hover {
@@ -212,7 +225,7 @@ a {
 }
 
 #happyhour {
-  background-image: url(/jeremys-list-dev/img/beer.png);
+  background-image: url(/img/beer.png);
 }
 
 #happyhour:hover {
@@ -220,7 +233,7 @@ a {
 }
 
 #drinks {
-  background-image: url(/jeremys-list-dev/img/wine.png);
+  background-image: url(/img/wine.png);
 }
 
 #drinks:hover {
