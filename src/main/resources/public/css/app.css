@@ -10,6 +10,7 @@ input {
 ul {
   list-style-type: none;
   text-align: left;
+  margin-left: -15px;
 }
 
 #restaurant-and-map-wrapper {
@@ -32,12 +33,18 @@ ul {
   border: 7px solid #515473;
   padding-top: 15px;
   padding-bottom: 15px;
+  padding-right: 20px;
   width: 600px;
+
 }
 
 .restaurant:hover {
   background: #F36559;
-  font-color: #FFFFFF !important;
+  border-radius: 15px;
+}
+
+.restaurant {
+  padding: 15px;
 }
 
 #list {
