@@ -1,4 +1,3 @@
-package jeremyslist;
 import com.google.gson.Gson;
 import java.util.HashMap;
 import spark.ModelAndView;
@@ -10,7 +9,7 @@ import java.util.Arrays;
 
 public class App {
   static String APP_ROOT;
-  static Boolean PRODUCTION = true;
+  static Boolean PRODUCTION = false;
 
   public static void main(String[] args) {
   staticFileLocation("/public");
