@@ -73,6 +73,27 @@ ul {
   font-weight: bold;
 }
 
+footer {
+  height: 0px;
+  position: absolute;
+  width: 100%;
+  left: 700px;
+  bottom: 0;
+}
+
+/*.restaurant:hover:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 100%;
+  width: 0;
+  height: 0;
+  border-color: transparent transparent transparent #F36559;
+  border-style: solid;
+  border-width: 10px;
+}*/
+
 #list {
   display: none;
   font-family: Lobster;
