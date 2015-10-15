@@ -1,60 +1,73 @@
-(function() {
-  var geocoder;
-  var map;
-  var initialize = function() {
-    var latlng = new google.maps.LatLng(45.5204527, -122.673812);
-    var mapOptions = {
-      zoom: 15,
-      center: latlng
-    }
-    map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  }
+var Map = {
+      var __markers = [];
+      var __restaurants = [];
+      var __geocoder;
+      var __map;
 
-  var restaurantArray = document.getElementsByClassName("restaurant-address");
+      restaurantArray = document.getElementsByClassName("restaurant-address");
 
+      initialize : function() {
+        var portland = {lat: 45.5204527, lng: -122.673812};
 
+        map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 15,
+          center: portland,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      },
 
+      setMapOnRestaurantMarkers : function(map) {
+        for (var i=0; i< markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      },
 
-  function codeAddress(address) {
-    // debugger;
-    geocoder = new google.maps.Geocoder();
+      clearMarkers : function() {
+        setMapOnRestaurantMarkers(null);
+      },
 
-     geocoder.geocode( { 'address': address }, function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
-         map.setCenter(results[0].geometry.location);
+      showMarkers : function() {
+        setMapOnRestaurantMarkers(map);
+      },
 
-        //  var infowindow = new google.maps.InfoWindow({
-        //    content: contentString
-        //  });
+      deleteMarkers : function() {
+        clearMarkers();
+        markers = [];
+      },
 
-         var marker = new google.maps.Marker({
-             map: map,
-             Title: '' + address,
-             position: results[0].geometry.location
+      getSelectedCategoryMarkers: function() {
+        for (var i = 0; i < restaurantArray.length; i++){
+           debugger;
+           var address = restaurantArray[i].getAttribute('data-address');
+           $(codeAddress(address));
+        }
+      },
+
+      codeAddress : function(address) {
+        // debugger;
+        geocoder = new google.maps.Geocoder();
+
+         geocoder.geocode( { 'address': address }, function(results, status) {
+           if (status == google.maps.GeocoderStatus.OK) {
+             map.setCenter(results[0].geometry.location);
+
+             var marker = new google.maps.Marker({
+                 map: map,
+                 Title: '' + address,
+                 position: results[0].geometry.location
+             });
+
+             markers.push(marker);
+
+             marker.addListener('click', function() {
+               infowindow.open(map, marker);
+             })
+
+           } else {
+            // alert("Geocode was not successful for the following reason: " + status);
+           }
          });
-
-         marker.addListener('click', function() {
-           infowindow.open(map, marker);
-
-
-         })
-
-       } else {
-        // alert("Geocode was not successful for the following reason: " + status);
        }
-     });
-   }
 
-  $(initialize);
-
-
-    $(document).ready(function() {
-      debugger;
-      for (var i = 0; i < restaurantArray.length; i++){
-         debugger;
-         var address = restaurantArray[i].getAttribute('data-address');
-         $(codeAddress(address));
-      }
-    });
+    $(initialize);
 
  })();
