@@ -17,8 +17,19 @@ ul {
   margin-left: -15px;
 }
 
-#restaurant-and-map-wrapper {
-  display:inline-block !important;
+.flexcontainer {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.col a{
+  display: inline-block;
+}
+
+.col .restaurant-name {
+  width: 400px;
 }
 
 #map {
@@ -49,10 +60,6 @@ ul {
 
 .restaurant {
   padding: 15px;
-}
-
-.restaurant:hover h2 {
-  color: #FFFFFF;
 }
 
 .restaurant:hover p {
@@ -89,15 +96,16 @@ a.clickable {
   background: #515473;
   color: #FFFFFF;
   width: 50px;
-  height: 25px;
-  padding-top: 25px;
+  height: 40px;
+  padding-top: 10px;
   border-radius: 50%;
-  display: block;
   text-align: center;
   font-family: 'Amatic SC', cursive;
+  font-size: 30px;
+  font-weight: bold;
 }
 
-h2.restaurant-name {
+p.restaurant-name {
   font-family: 'Amatic SC', cursive;
   font-weight: bolder;
   font-size: 55px;
