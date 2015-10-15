@@ -7,20 +7,37 @@ input {
   display: none;
 }
 
+/*div {
+  border: 3px solid #eee;
+}*/
+
 ul {
   list-style-type: none;
   text-align: left;
+  margin-left: -15px;
 }
 
-#restaurant-and-map-wrapper {
-  display:inline-block;
+.flexcontainer {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+
+.col a{
+  display: inline-block;
+}
+
+.col .restaurant-name {
+  width: 400px;
 }
 
 #map {
   height: 700px;
   width: 500px;
-  position: relative;
-  float: right;
+  position: fixed !important;
+  margin-top: -570px;
+  margin-left: 700px;
 }
 
 #restaurants-info-container {
@@ -32,12 +49,28 @@ ul {
   border: 7px solid #515473;
   padding-top: 15px;
   padding-bottom: 15px;
+  padding-right: 20px;
   width: 600px;
+
 }
 
 .restaurant:hover {
   background: #F36559;
-  font-color: #FFFFFF !important;
+  border-radius: 15px;
+}
+
+.restaurant {
+  padding: 15px;
+}
+
+.restaurant:hover p {
+  color: #FFFFFF;
+}
+
+.restaurant:hover a {
+  background: #FFFFFF;
+  color: #515473;
+  font-weight: bold;
 }
 
 #list {
@@ -64,14 +97,17 @@ a.clickable {
   /*float: right;*/
   background: #515473;
   color: #FFFFFF;
-  width: 100px;
-  padding: 10px 10px;
-  margin: 5px;
-  border-radius: 5px;
-  display: inline-block;
+  width: 50px;
+  height: 40px;
+  padding-top: 10px;
+  border-radius: 50%;
+  text-align: center;
+  font-family: 'Amatic SC', cursive;
+  font-size: 30px;
+  font-weight: bold;
 }
 
-h2.restaurant-name {
+p.restaurant-name {
   font-family: 'Amatic SC', cursive;
   font-weight: bolder;
   font-size: 55px;
@@ -121,10 +157,10 @@ p {
   -webkit-transition-duration: 0;
 }
 
-  /* Once the page is loaded (or it loaded in circle mode), make sure the animation duration is set. */
-  body.page-loaded .category {
-    -webkit-transition-duration: 0.3s;
-  }
+/* Once the page is loaded (or it loaded in circle mode), make sure the animation duration is set. */
+body.page-loaded .category {
+  -webkit-transition-duration: 0.3s;
+}
 
 .category.xl{
   width: 95px;

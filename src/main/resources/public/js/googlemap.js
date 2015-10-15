@@ -40,28 +40,21 @@
          })
 
        } else {
-        //  alert("Geocode was not successful for the following reason: " + status);
+        // alert("Geocode was not successful for the following reason: " + status);
        }
      });
    }
 
-  // $(for (var i = 0; i < restaurantArray.length; i++){
-  //    debugger;
-  //    var address = restaurantArray[i].getAttribute('data-address');
-  //    $(codeAddress(address));
-  //  });
-  //  $(codeAddress);
-
   $(initialize);
 
 
-    var createMarkers = function() {
+    $(document).ready(function() {
       debugger;
       for (var i = 0; i < restaurantArray.length; i++){
          debugger;
          var address = restaurantArray[i].getAttribute('data-address');
          $(codeAddress(address));
       }
-    };
+    });
 
  })();
