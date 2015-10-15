@@ -7,6 +7,10 @@ input {
   display: none;
 }
 
+div {
+  border: 3px solid #eee;
+}
+
 ul {
   list-style-type: none;
   text-align: left;
@@ -14,7 +18,7 @@ ul {
 }
 
 #restaurant-and-map-wrapper {
-  display:inline-block;
+  display:inline-block !important;
 }
 
 #map {
@@ -47,6 +51,19 @@ ul {
   padding: 15px;
 }
 
+.restaurant:hover h2 {
+  color: #FFFFFF;
+}
+
+.restaurant:hover p {
+  color: #FFFFFF;
+}
+
+.restaurant:hover a {
+  background: #FFFFFF;
+  color: #515473;
+}
+
 #list {
   display: none;
   font-family: Lobster;
@@ -71,11 +88,13 @@ a.clickable {
   /*float: right;*/
   background: #515473;
   color: #FFFFFF;
-  width: 100px;
-  padding: 10px 10px;
-  margin: 5px;
-  border-radius: 5px;
-  display: inline-block;
+  width: 50px;
+  height: 25px;
+  padding-top: 25px;
+  border-radius: 50%;
+  display: block;
+  text-align: center;
+  font-family: 'Amatic SC', cursive;
 }
 
 h2.restaurant-name {
@@ -128,10 +147,10 @@ p {
   -webkit-transition-duration: 0;
 }
 
-  /* Once the page is loaded (or it loaded in circle mode), make sure the animation duration is set. */
-  body.page-loaded .category {
-    -webkit-transition-duration: 0.3s;
-  }
+/* Once the page is loaded (or it loaded in circle mode), make sure the animation duration is set. */
+body.page-loaded .category {
+  -webkit-transition-duration: 0.3s;
+}
 
 .category.xl{
   width: 95px;
