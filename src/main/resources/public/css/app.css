@@ -7,9 +7,9 @@ input {
   display: none;
 }
 
-div {
+/*div {
   border: 3px solid #eee;
-}
+}*/
 
 ul {
   list-style-type: none;
@@ -35,8 +35,9 @@ ul {
 #map {
   height: 700px;
   width: 500px;
-  position: relative;
-  float: right;
+  position: fixed !important;
+  margin-top: -570px;
+  margin-left: 700px;
 }
 
 #restaurants-info-container {
@@ -69,6 +70,7 @@ ul {
 .restaurant:hover a {
   background: #FFFFFF;
   color: #515473;
+  font-weight: bold;
 }
 
 #list {
