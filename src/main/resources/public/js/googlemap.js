@@ -1,10 +1,9 @@
 var Map = {
-      var __markers = [];
-      var __restaurants = [];
-      var __geocoder;
-      var __map;
+      var __markers : [],
+      var __restaurants : [],
+      var __geocoder,
+      var __map,
 
-      restaurantArray = document.getElementsByClassName("restaurant-address");
 
       initialize : function() {
         var portland = {lat: 45.5204527, lng: -122.673812};
@@ -16,6 +15,7 @@ var Map = {
       },
 
       setMapOnRestaurantMarkers : function(map) {
+        restaurants = document.getElementsByClassName("restaurant-address");
         for (var i=0; i< markers.length; i++) {
           markers[i].setMap(map);
         }
@@ -67,7 +67,5 @@ var Map = {
            }
          });
        }
-
-    $(initialize);
 
  })();
