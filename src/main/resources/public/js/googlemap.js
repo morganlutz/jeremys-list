@@ -9,7 +9,7 @@ var Map = {
         var portland = {lat: 45.5204527, lng: -122.673812};
 
         Map.__map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 15,
+          zoom: 10,
           center: portland,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         })
@@ -17,7 +17,7 @@ var Map = {
 
       createMarkers : function () {
         // debugger;
-        Map.getSelectedCategoryAddresses();
+        Map.__addresses = Map.getSelectedCategoryAddresses();
         for (var i = 0; i < Map.__addresses.length; i++) {
           $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + Map.__addresses[i] + '&sensor=false', null, function (data) {
             // debugger;
@@ -35,7 +35,6 @@ var Map = {
       },
 
       setMapOnRestaurantMarkers : function(map) {
-        // debugger;
         Map.initialize();
         for (var i=0; i< Map.__markers.length; i++) {
           Map.__markers[i].setMap(map);
@@ -43,7 +42,6 @@ var Map = {
       },
 
       clearMarkers : function() {
-        debugger;
         Map.setMapOnRestaurantMarkers(null);
       },
       //
@@ -52,17 +50,17 @@ var Map = {
       // },
       //
       deleteMarkers : function() {
-        debugger;
         Map.clearMarkers();
         Map.__markers = [];
       },
 
       getSelectedCategoryAddresses: function() {
+        var addresses = [];
         Map.__restaurants = document.getElementsByClassName('restaurant-address');
         for (var i = 0; i < Map.__restaurants.length; i++){
-           Map.__addresses.push(Map.__restaurants[i].getAttribute('data-address'));
+           addresses.push(Map.__restaurants[i].getAttribute('data-address'));
         }
-        return Map.__addresses;
+        return addresses;
       },
       //
       // codeAddress : function(address) {

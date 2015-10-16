@@ -72,7 +72,7 @@ var Circles = {
           }
           Circles.loadCategory(category);
           Circles.formLine();
-
+          Map.deleteMarkers();
         },
 
         loadCategory: function (category) {
@@ -139,7 +139,6 @@ var Circles = {
           document.body.offsetWidth;
           var map = Map.__map;
           if (map) {
-            Map.deleteMarkers();
             Map.createMarkers();
             Map.setMapOnRestaurantMarkers(map);
           } else {
@@ -178,11 +177,11 @@ var Circles = {
           // When loading in circle mode, add page-loaded so that the animation will show.
           document.body.classList.add('page-loaded');
           Circles.formCircle();
-          Map.createMarkers();
-          Map.setMapOnRestaurantMarkers();
 
         } else {
           Circles.setActive(Circles.getActiveCategoryFromURL());
+          Map.createMarkers();
+          Map.setMapOnRestaurantMarkers();
 
         }
       };
