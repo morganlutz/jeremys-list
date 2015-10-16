@@ -62,6 +62,7 @@ var Circles = {
         },
 
         setActive: function (category, isViaPopstate) {
+          debugger;
         //  circles = Circles.circles;
           Map.deleteMarkers();
           var newCategory = document.getElementById(category);
@@ -72,7 +73,6 @@ var Circles = {
           }
           Circles.loadCategory(category);
           Circles.formLine();
-          Map.getSelectedCategoryMarkers();
         },
 
         loadCategory: function (category) {
@@ -160,7 +160,6 @@ var Circles = {
         } // This should fix the back-to-homepage bug.
       }, true);
 
-
       function initializeCircles() {
         // This is called once the circles are moved into position to ensure that the animation duration is set when loaded in line-mode.
         setTimeout(function () {
@@ -174,9 +173,9 @@ var Circles = {
 
         } else {
           Circles.setActive(Circles.getActiveCategoryFromURL());
-          Circles.formLine();
-          Map.initialize();
-          Map.getSelectedCategoryMarkers();
+          // Circles.formLine();
+          // Map.initialize();
+          // Map.getSelectedCategoryMarkers();
         }
       };
 
