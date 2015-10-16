@@ -69,7 +69,6 @@ var Circles = {
           if(!isViaPopstate) {
             history.pushState({}, category, Circles.APP_ROOT + '/category/' + category);
           }
-
           Circles.loadCategory(category);
           Circles.formLine();
         },
@@ -115,7 +114,7 @@ var Circles = {
             history.pushState({}, '', Circles.APP_ROOT);
 
           Circles.formCircle();
-
+          $('#map').hide('fast');
           $('#restaurants-info-container').hide('fast'); // Hide the container when there is nothing in it.
         }
       };
@@ -136,6 +135,8 @@ var Circles = {
           Circles.setActive(category);
           event.preventDefault();
           document.body.offsetWidth;
+          // Map.clearMarkers();
+          Map.getSelectedCategoryMarkers();
 
         })
 
@@ -151,10 +152,12 @@ var Circles = {
         circles.removeClass('circle-active');
         var category = Circles.getActiveCategoryFromURL();
 
-        if (category)
+        if (category) {
           Circles.setActive(category, true);
-        else
-          Circles.goHome(true); // This should fix the back-to-homepage bug.
+          Map.getSelectedCategoryMarkers();
+        } else {
+          Circles.goHome(true);
+        } // This should fix the back-to-homepage bug.
       }, true);
 
 
@@ -167,11 +170,13 @@ var Circles = {
         if(!Circles.getActiveCategoryFromURL()) {
           // When loading in circle mode, add page-loaded so that the animation will show.
           document.body.classList.add('page-loaded');
-
           Circles.formCircle();
+
         } else {
           Circles.setActive(Circles.getActiveCategoryFromURL());
           Circles.formLine();
+          Map.initialize();
+          Map.getSelectedCategoryMarkers();
         }
       };
 

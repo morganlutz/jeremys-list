@@ -1,8 +1,7 @@
 var Map = {
-      var __markers : [],
-      var __restaurants : [],
-      var __geocoder,
-      var __map,
+       __markers : [],
+       __restaurants : [],
+       __map : null,
 
 
       initialize : function() {
@@ -12,12 +11,12 @@ var Map = {
           zoom: 15,
           center: portland,
           mapTypeId: google.maps.MapTypeId.ROADMAP
+        })
       },
 
       setMapOnRestaurantMarkers : function(map) {
-        restaurants = document.getElementsByClassName("restaurant-address");
-        for (var i=0; i< markers.length; i++) {
-          markers[i].setMap(map);
+        for (var i=0; i< Map.__markers.length; i++) {
+          Map.__markers[i].setMap(map);
         }
       },
 
@@ -31,20 +30,22 @@ var Map = {
 
       deleteMarkers : function() {
         clearMarkers();
-        markers = [];
+        Map.__markers = [];
       },
 
       getSelectedCategoryMarkers: function() {
-        for (var i = 0; i < restaurantArray.length; i++){
-           debugger;
-           var address = restaurantArray[i].getAttribute('data-address');
-           $(codeAddress(address));
+        debugger;
+        restaurants = document.getElementsByClassName("restaurant-address");
+        // clearMarkers();
+        for (var i = 0; i < restaurants.length; i++){
+           var address = restaurants[i].getAttribute('data-address');
+           $(Map.codeAddress(address));
         }
       },
 
       codeAddress : function(address) {
-        // debugger;
-        geocoder = new google.maps.Geocoder();
+        debugger;
+        var geocoder = new google.maps.Geocoder();
 
          geocoder.geocode( { 'address': address }, function(results, status) {
            if (status == google.maps.GeocoderStatus.OK) {
@@ -56,7 +57,9 @@ var Map = {
                  position: results[0].geometry.location
              });
 
-             markers.push(marker);
+             Map.__markers.push(marker);
+
+             console.log(Map.__markers);
 
              marker.addListener('click', function() {
                infowindow.open(map, marker);
@@ -68,4 +71,4 @@ var Map = {
          });
        }
 
- })();
+ };
