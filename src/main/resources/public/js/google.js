@@ -1,5 +1,4 @@
 var Map = {
-       __marker : null,
        __markers : [],
        __restaurants : [],
        __addresses : [],
@@ -9,7 +8,7 @@ var Map = {
       initialize : function() {
         var portland = { lat : 45.5404527, lng : -122.673812 };
 
-        Map.__map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 7,
           center: portland,
           mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -17,7 +16,7 @@ var Map = {
       },
 
       getSelectedCategoryAddresses : function() {
-        Map.__restaurants = document.getElementsByClassName('restaurant-address');
+        Map.__restaurants = document.getElementByClassName('restaurant-address');
         for ( var i = 0; i < Map.__restaurants.length; i++ ) {
           Map.__addresses.push(Map.__restaurants[i].getAttribute('data-address'));
         }
@@ -28,19 +27,21 @@ var Map = {
       createMarkers : function (addresses) {
         var geocoder = new google.maps.Geocoder();
         for (var i = 0; i < addresses.length; i++) {
-          var address = addresses[i];
-          geocoder.geocode( { 'address' : address }, function(results, status) {
-            debugger;
+          geocoder.geocode( { 'address' : addresses[i] }, function(results, status) {
             if(status === google.maps.GeocoderStatus.OK) {
-              var lat = results[0].geometry.location.lat();
-              var lng = results[0].geometry.location.lng();
-              var latlng = [lat, lng];
-              Map.__locations.push(Map.latlng);
+              var marker = new google.maps.Marker({
+                map : Map.__map,
+                Title : '' + addresses[i],
+                position : results[0].geometry.location
+              });
 
+              Map.__markers.push(marker);
+              console.log(marker);
             } else {
               alert('Geocode was not successful for the following reason: ' + status);
             }
-          });
+          })
+          return Map.__markers;
         }
       },
 

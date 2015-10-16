@@ -72,7 +72,6 @@ var Circles = {
           }
           Circles.loadCategory(category);
           Circles.formLine();
-          Map.deleteMarkers();
         },
 
         loadCategory: function (category) {
@@ -112,14 +111,35 @@ var Circles = {
 
         // Self explanitory!?!?
         goHome: function (isViaPopstate) {
-          if (!isViaPopstate)
-            history.pushState({}, '', Circles.APP_ROOT);
+          if (!isViaPopstate) {
+              history.pushState({}, '', Circles.APP_ROOT);
+              Circles.formCircle();
+              Map.deleteMarkers();
+              $('#map').hide('fast');
+              $('#restaurants-info-container').hide('fast'); // Hide the container when there is nothing in it.
+            }
+          },
+        };
 
-          Circles.formCircle();
-          $('#map').hide('fast');
-          $('#restaurants-info-container').hide('fast'); // Hide the container when there is nothing in it.
-        }
-      };
+        function initializeCircles() {
+          var map = Map.initialize();
+          // This is called once the circles are moved into position to ensure that the animation duration is set when loaded in line-mode.
+          setTimeout(function () {
+            document.body.classList.add('page-loaded');
+          }, 1000);
+
+          if(!Circles.getActiveCategoryFromURL()) {
+            // When loading in circle mode, add page-loaded so that the animation will show.
+            document.body.classList.add('page-loaded');
+            Circles.formCircle();
+
+          } else {
+            Circles.setActive(Circles.getActiveCategoryFromURL());
+            Map.__map = Map.initialize();
+            Map.createMarkers(Map.getSelectedCategoryAddresses());
+            Map.setMapOnRestaurantMarkers(Map.__map);
+          }
+        };
 
       $(function () {
         // Since we have not yet loaded restaurant info, hide the container for it.
@@ -131,20 +151,16 @@ var Circles = {
 
       $(document)
         .on('click touchend', 'a.category', function() {
+          Map.deleteMarkers();
           circles = $('.category').removeClass('circle-active');
           circles.removeClass('circle-active');
           var category = this.getAttribute('data-category');
           Circles.setActive(category);
           event.preventDefault();
           document.body.offsetWidth;
-          var map = Map.__map;
-          if (map) {
-            Map.createMarkers();
-            Map.setMapOnRestaurantMarkers(map);
-          } else {
-            Map.createMarkers();
-            Map.setMapOnRestaurantMarkers(map);
-          }
+          Map.__map = Map.initialize();
+          Map.createMarkers(Map.getSelectedCategoryAddresses());
+          Map.setMapOnRestaurantMarkers(Map.__map);
 
         })
 
@@ -155,36 +171,22 @@ var Circles = {
           Circles.goHome();
         });
 
-      // window.addEventListener('popstate', function (event) {
-      //   circles = $('.category').removeClass('circle-active');
-      //   circles.removeClass('circle-active');
-      //   var category = Circles.getActiveCategoryFromURL();
-      //
-      //   if (category) {
-      //     Circles.setActive(category, true);
-      //   } else {
-      //     Circles.goHome(true);
-      //   } // This should fix the back-to-homepage bug.
-      // }, true);
+      window.addEventListener('popstate', function (event) {
+        circles = $('.category').removeClass('circle-active');
+        circles.removeClass('circle-active');
+        var category = Circles.getActiveCategoryFromURL();
 
-      function initializeCircles() {
-        // This is called once the circles are moved into position to ensure that the animation duration is set when loaded in line-mode.
-        setTimeout(function () {
-          document.body.classList.add('page-loaded');
-        }, 1000);
-
-        if(!Circles.getActiveCategoryFromURL()) {
-          // When loading in circle mode, add page-loaded so that the animation will show.
-          document.body.classList.add('page-loaded');
-          Circles.formCircle();
-
+        if (category) {
+          Circles.setActive(category, true);
+          Map.initialize();
+          Map.createMarkers(Map.getSelectedCategoryAddresses());
+          Map.setMapOnRestaurantMarkers(Map.__map);
         } else {
-          Circles.setActive(Circles.getActiveCategoryFromURL());
-          Map.createMarkers();
-          Map.setMapOnRestaurantMarkers();
+          Circles.goHome(true);
+        } // This should fix the back-to-homepage bug.
+      }, true);
 
-        }
-      };
+
 
       // create: function () {
       //   Circles.destroy();
