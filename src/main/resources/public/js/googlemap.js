@@ -34,29 +34,29 @@ var Map = {
         console.log(Map.__markers);
       },
 
-      setMapOnRestaurantMarkers : function() {
+      setMapOnRestaurantMarkers : function(map) {
         // debugger;
         Map.initialize();
         for (var i=0; i< Map.__markers.length; i++) {
-          Map.__markers[i].setMap(Map.__map);
+          Map.__markers[i].setMap(map);
         }
       },
 
-      // clearMarkers : function() {
-      //   debugger;
-      //   Map.setMapOnRestaurantMarkers(null);
-      // },
+      clearMarkers : function() {
+        debugger;
+        Map.setMapOnRestaurantMarkers(null);
+      },
       //
       // showMarkers : function() {
       //   Map.setMapOnRestaurantMarkers(Map.__map);
       // },
       //
-      // deleteMarkers : function() {
-      //   debugger;
-      //   Map.clearMarkers();
-      //   Map.__markers = [];
-      // },
-      //
+      deleteMarkers : function() {
+        debugger;
+        Map.clearMarkers();
+        Map.__markers = [];
+      },
+
       getSelectedCategoryAddresses: function() {
         Map.__restaurants = document.getElementsByClassName('restaurant-address');
         for (var i = 0; i < Map.__restaurants.length; i++){

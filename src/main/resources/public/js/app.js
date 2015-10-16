@@ -72,10 +72,7 @@ var Circles = {
           }
           Circles.loadCategory(category);
           Circles.formLine();
-          Map.__map = null;
-          Map.__markers = [];
-          Map.createMarkers();
-          Map.setMapOnRestaurantMarkers();
+
         },
 
         loadCategory: function (category) {
@@ -140,6 +137,15 @@ var Circles = {
           Circles.setActive(category);
           event.preventDefault();
           document.body.offsetWidth;
+          var map = Map.__map;
+          if (map) {
+            Map.deleteMarkers();
+            Map.createMarkers();
+            Map.setMapOnRestaurantMarkers(map);
+          } else {
+            Map.createMarkers();
+            Map.setMapOnRestaurantMarkers(map);
+          }
 
         })
 
@@ -150,17 +156,17 @@ var Circles = {
           Circles.goHome();
         });
 
-      window.addEventListener('popstate', function (event) {
-        circles = $('.category').removeClass('circle-active');
-        circles.removeClass('circle-active');
-        var category = Circles.getActiveCategoryFromURL();
-
-        if (category) {
-          Circles.setActive(category, true);
-        } else {
-          Circles.goHome(true);
-        } // This should fix the back-to-homepage bug.
-      }, true);
+      // window.addEventListener('popstate', function (event) {
+      //   circles = $('.category').removeClass('circle-active');
+      //   circles.removeClass('circle-active');
+      //   var category = Circles.getActiveCategoryFromURL();
+      //
+      //   if (category) {
+      //     Circles.setActive(category, true);
+      //   } else {
+      //     Circles.goHome(true);
+      //   } // This should fix the back-to-homepage bug.
+      // }, true);
 
       function initializeCircles() {
         // This is called once the circles are moved into position to ensure that the animation duration is set when loaded in line-mode.
@@ -172,6 +178,8 @@ var Circles = {
           // When loading in circle mode, add page-loaded so that the animation will show.
           document.body.classList.add('page-loaded');
           Circles.formCircle();
+          Map.createMarkers();
+          Map.setMapOnRestaurantMarkers();
 
         } else {
           Circles.setActive(Circles.getActiveCategoryFromURL());
