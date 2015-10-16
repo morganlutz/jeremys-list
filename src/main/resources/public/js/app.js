@@ -63,6 +63,7 @@ var Circles = {
 
         setActive: function (category, isViaPopstate) {
         //  circles = Circles.circles;
+          Map.deleteMarkers();
           var newCategory = document.getElementById(category);
           newCategory.classList.add('circle-active');
 
@@ -71,6 +72,7 @@ var Circles = {
           }
           Circles.loadCategory(category);
           Circles.formLine();
+          Map.getSelectedCategoryMarkers();
         },
 
         loadCategory: function (category) {
@@ -135,8 +137,6 @@ var Circles = {
           Circles.setActive(category);
           event.preventDefault();
           document.body.offsetWidth;
-          // Map.clearMarkers();
-          Map.getSelectedCategoryMarkers();
 
         })
 
@@ -148,13 +148,13 @@ var Circles = {
         });
 
       window.addEventListener('popstate', function (event) {
+        debugger;
         circles = $('.category').removeClass('circle-active');
         circles.removeClass('circle-active');
         var category = Circles.getActiveCategoryFromURL();
 
         if (category) {
           Circles.setActive(category, true);
-          Map.getSelectedCategoryMarkers();
         } else {
           Circles.goHome(true);
         } // This should fix the back-to-homepage bug.

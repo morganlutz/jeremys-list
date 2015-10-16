@@ -21,20 +21,19 @@ var Map = {
       },
 
       clearMarkers : function() {
-        setMapOnRestaurantMarkers(null);
+        Map.setMapOnRestaurantMarkers(null);
       },
 
       showMarkers : function() {
-        setMapOnRestaurantMarkers(map);
+        Map.setMapOnRestaurantMarkers(map);
       },
 
       deleteMarkers : function() {
-        clearMarkers();
+        Map.clearMarkers();
         Map.__markers = [];
       },
 
       getSelectedCategoryMarkers: function() {
-        debugger;
         restaurants = document.getElementsByClassName("restaurant-address");
         // clearMarkers();
         for (var i = 0; i < restaurants.length; i++){
@@ -44,7 +43,6 @@ var Map = {
       },
 
       codeAddress : function(address) {
-        debugger;
         var geocoder = new google.maps.Geocoder();
 
          geocoder.geocode( { 'address': address }, function(results, status) {
