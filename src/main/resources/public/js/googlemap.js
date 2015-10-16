@@ -1,6 +1,7 @@
 var Map = {
        __markers : [],
        __restaurants : [],
+       __addresses : [],
        __map : null,
 
 
@@ -14,71 +15,90 @@ var Map = {
         })
       },
 
-      setMapOnRestaurantMarkers : function(map) {
-        debugger;
+      createMarkers : function () {
+        // debugger;
+        Map.getSelectedCategoryAddresses();
+        for (var i = 0; i < Map.__addresses.length; i++) {
+          $.getJSON('http://maps.googleapis.com/maps/api/geocode/json?address=' + Map.__addresses[i] + '&sensor=false', null, function (data) {
+            // debugger;
+            var markerResults = data.results[0].geometry.location
+            var latlng = new google.maps.LatLng(markerResults.lat, markerResults.lng);
+            var marker = new google.maps.Marker({
+                          position: latlng,
+                          map: Map.__map
+                        });
+            Map.__markers.push(marker);
+          });
+        }
+        return Map.__markers;
+        console.log(Map.__markers);
+      },
+
+      setMapOnRestaurantMarkers : function() {
+        // debugger;
+        Map.initialize();
         for (var i=0; i< Map.__markers.length; i++) {
-          Map.__markers[i].setMap(map);
+          Map.__markers[i].setMap(Map.__map);
         }
       },
 
-      clearMarkers : function() {
-        debugger;
-        Map.setMapOnRestaurantMarkers(null);
-      },
-
-      showMarkers : function() {
-        Map.setMapOnRestaurantMarkers(Map.__map);
-      },
-
-      deleteMarkers : function() {
-        debugger;
-        Map.clearMarkers();
-        Map.__markers = [];
-      },
-
-      getSelectedCategoryMarkers: function() {
-        restaurants = document.getElementsByClassName('restaurant-address');
-        // clearMarkers();
-        for (var i = 0; i < restaurants.length; i++){
-           var address = restaurants[i].getAttribute('data-address');
-           Map.codeAddress(address);
+      // clearMarkers : function() {
+      //   debugger;
+      //   Map.setMapOnRestaurantMarkers(null);
+      // },
+      //
+      // showMarkers : function() {
+      //   Map.setMapOnRestaurantMarkers(Map.__map);
+      // },
+      //
+      // deleteMarkers : function() {
+      //   debugger;
+      //   Map.clearMarkers();
+      //   Map.__markers = [];
+      // },
+      //
+      getSelectedCategoryAddresses: function() {
+        Map.__restaurants = document.getElementsByClassName('restaurant-address');
+        for (var i = 0; i < Map.__restaurants.length; i++){
+           Map.__addresses.push(Map.__restaurants[i].getAttribute('data-address'));
         }
+        return Map.__addresses;
       },
-
-      codeAddress : function(address) {
-        var geocoder = new google.maps.Geocoder();
-        var splitAddress = address.split(' ').join('+');
-         geocoder.geocode( { 'address': address }, function(results, status) {
-           if (status == google.maps.GeocoderStatus.OK) {
-            //  Map.__map.setCenter(results[0].geometry.location);
-             var contentString = '<strong>' + name + '</strong>' + '<br>'
-             + '<a href=\'' + 'https://www.google.com/maps/place/'
-             + splitAddress + '\'>' + 'Get directions!' + '</a>';
-
-             var marker = new google.maps.Marker({
-                 map: Map.__map,
-                 Title: '' + address,
-                 position: results[0].geometry.location
-             });
-
-             var infowindow = new google.maps.InfoWindow({
-               content: contentString
-             });
-
-             marker.addListener('click', function() {
-               infowindow.open(Map.__map, marker);
-             });
-
-             Map.__markers.push(marker);
-
-             console.log(Map.__markers);
-
-           } else {
-            // alert("Geocode was not successful for the following reason: " + status);
-           }
-         })
-         return Map.__markers;
-       }
+      //
+      // codeAddress : function(address) {
+      //   var geocoder = new google.maps.Geocoder();
+      //   var splitAddress = address.split(' ').join('+');
+      //    geocoder.geocode( { 'address': address }, function(results, status) {
+      //      if (status == google.maps.GeocoderStatus.OK) {
+      //       //  Map.__map.setCenter(results[0].geometry.location);
+      //        var contentString = '<strong>' + name + '</strong>' + '<br>'
+      //        + '<a href=\'' + 'https://www.google.com/maps/place/'
+      //        + splitAddress + '\'>' + 'Get directions!' + '</a>';
+      //
+      //        var marker = new google.maps.Marker({
+      //            map: Map.__map,
+      //            Title: '' + address,
+      //            position: results[0].geometry.location
+      //        });
+      //
+      //        var infowindow = new google.maps.InfoWindow({
+      //          content: contentString
+      //        });
+      //
+      //        marker.addListener('click', function() {
+      //          infowindow.open(Map.__map, marker);
+      //        });
+      //
+      //        Map.__markers.push(marker);
+      //
+      //        console.log(Map.__markers);
+      //
+      //      } else {
+      //       // alert("Geocode was not successful for the following reason: " + status);
+      //      }
+      //    })
+      //    return Map.__markers;
+      //  }
 
 
  };

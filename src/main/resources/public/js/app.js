@@ -22,6 +22,7 @@ var Circles = {
         formCircle: function () {
           Circles.wrapper.classList.add('circle-mode');
           Circles.wrapper.classList.remove('line-mode');
+
           var circles = Circles.circles,
               translateAmount = (Circles.wrapper.offsetWidth / 2) - 1,
               degreeIncrement = 360 / circles.length,
@@ -62,9 +63,7 @@ var Circles = {
         },
 
         setActive: function (category, isViaPopstate) {
-          debugger;
         //  circles = Circles.circles;
-          Map.deleteMarkers();
           var newCategory = document.getElementById(category);
           newCategory.classList.add('circle-active');
 
@@ -73,6 +72,10 @@ var Circles = {
           }
           Circles.loadCategory(category);
           Circles.formLine();
+          Map.__map = null;
+          Map.__markers = [];
+          Map.createMarkers();
+          Map.setMapOnRestaurantMarkers();
         },
 
         loadCategory: function (category) {
@@ -148,7 +151,6 @@ var Circles = {
         });
 
       window.addEventListener('popstate', function (event) {
-        debugger;
         circles = $('.category').removeClass('circle-active');
         circles.removeClass('circle-active');
         var category = Circles.getActiveCategoryFromURL();
@@ -173,9 +175,7 @@ var Circles = {
 
         } else {
           Circles.setActive(Circles.getActiveCategoryFromURL());
-          // Circles.formLine();
-          // Map.initialize();
-          // Map.getSelectedCategoryMarkers();
+
         }
       };
 
